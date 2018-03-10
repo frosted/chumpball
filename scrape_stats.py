@@ -1,6 +1,10 @@
 from __future__ import print_function # Python 2/3 compatibility
-import requests
-from bs4 import BeautifulSoup
+import requests #install requests
+from bs4 import BeautifulSoup #install BS4 & lxml
+from fuzzywuzzy import fuzz #import fuzzywuzzy
+from fuzzywuzzy import process
+#import python-Levenshtein to benefit from the performance
+#of python-Levenshtein for sequence matching
 
 
 class Player(object):
@@ -66,36 +70,34 @@ class Owner(object):
 
 def find_player(player_name, all_players):
     # list for all players found matching player_name
-    result = []
+    choices = []
+    for player in all_players:
+        choices.append(player.name)
 
-    # full text search
+    # Get a list of matches ordered by score, default limit to 5
+    # process.extract(player_name, all_players)
+
+    # only the top match
+    match = process.extractOne(player_name, choices)
+
+    if match == '':
+        return False
+
     for player in all_players:
         # we're looking any occurance of the substring
         if player.name.lower().find(player_name.lower()) != -1:
             # add to list
-            result.append(player)
+            return player
 
-    # if nothing returned, try a fuzzy string compare
-    if len(result) == 0:
-        # last name search
-        for player in all_players:
-            # we're looking any occurance of the substring
-            if player.name.lower().find(player_name.split(' ')[-1].strip().lower()) != -1:
-                # add to list
-                result.append(player)
+def scrape_players(url, section="", pages=100):
+    '''
+    scrape_player(url, section="", pages=100)
+    the first required argument: url
+    the second optional argument will append this string to the end of the URL
+    the third optional argument you can set the total pages to check
 
-    # if we return more/less than 1 result, throw exception
-    if len(result) == 1:
-        print('found {}'.format(player_name))
-        return result[-1]
-    elif len(result) == 0:
-        print('{} results, could not find {}'.format(len(result), player_name))
-        #raise ValueError('not found','total players returned should be 1, your query returned none.')
-    else:
-        print('what? {}'.format(result))
-        #raise ValueError('too many results','total players returned should be 1')
-
-def scrape_stats(url, section, pages=100):
+    this function returns a PLAYER object
+    '''
     header_list = ['omit','omit','Player','Team','GP','MIN','FGM','FGA','FG%','3PM','3PA','3P%','FTM','FTA','FT%','TOV','PF','ORB','DRB','REB','AST','STL','BLK','PTS']
     statsheet = []
     stat_dict = {}
@@ -149,42 +151,17 @@ def print_all_stats(stat_obj):
     for i, player in enumerate(stat_obj):
         print(player[i])
 
-def print_player_stats(player):
-    print('{} has racked up {} points, {} assists, {} rebounds, and {} turnovers.  His pool value to date is: {}'.format(player.name, player.pts, player.ast, player.reb, player.tov, player.get_value()))
+def print_player_summary(player):
+    if player:
+        print('{} has racked up {} points, {} assists, {} rebounds, and {} turnovers.  His pool value to date is: {}'.format(player.name, player.pts, player.ast, player.reb, player.tov, player.get_value()))
+    else:
+        print('player not found')
 
 def create_pool_sim(draft_def):
     for owner, data in draft_def.items():
         print(owner)
         for player, pos in data.items():
             print('{} : {}'.format(player, pos))
-
-def create_pool(draft_def, draft_players):
-    owner_pool = []
-    for owner, data in draft_def.items():
-        owner_pool.append(Owner(owner))
-        for player, pos in data.items():
-            #print('{} : {}'.format(player, pos))
-            if pos.lower() == 'c':
-                print('adding {} @ {} for {}'.format(player, pos, owner_pool[-1].name))
-                owner_pool[-1].add_center(find_player(player, draft_players))
-                #owner_pool[-1].list_centers()
-            elif pos.lower() == 'f':
-                print('adding {} @ {} for {}'.format(player, pos, owner_pool[-1].name))
-                owner_pool[-1].add_forward(find_player(player, draft_players))
-            elif pos.lower() == 'g':
-                print('adding {} @ {} for {}'.format(player, pos, owner_pool[-1].name))
-                owner_pool[-1].add_guard(find_player(player, draft_players))
-            else:
-                print('exception caught')
-
-def ask_for_stats(all_stats):
-    i_should_ask = True
-    while i_should_ask:
-        user_input = raw_input('enter player name (type :q to quit): ')
-        if user_input == ':q':
-            i_should_ask = False
-        else:
-            print_player_stats(find_player(user_input,all_stats))
 
 def create_rosters():
     # SET-UP LEAGUE
@@ -282,10 +259,39 @@ def create_rosters():
                 'Victor Oladipo':'G'}
             }
 
-def main():
+def create_pool(draft_def, draft_players):
+    owner_pool = []
+    for owner, data in draft_def.items():
+        owner_pool.append(Owner(owner))
+        for player, pos in data.items():
+            #print('{} : {}'.format(player, pos))
+            if pos.lower() == 'c':
+                #print('adding {} @ {} for {}'.format(player, pos, owner_pool[-1].name))
+                owner_pool[-1].add_center(find_player(player, draft_players))
+                #owner_pool[-1].list_centers()
+            elif pos.lower() == 'f':
+                #print('adding {} @ {} for {}'.format(player, pos, owner_pool[-1].name))
+                owner_pool[-1].add_forward(find_player(player, draft_players))
+            elif pos.lower() == 'g':
+                #print('adding {} @ {} for {}'.format(player, pos, owner_pool[-1].name))
+                owner_pool[-1].add_guard(find_player(player, draft_players))
+            else:
+                print('exception caught')
 
+def ask_for_stats(all_stats):
+    i_should_ask = True
+    while i_should_ask:
+        user_input = raw_input('enter player name (type :q to quit): ')
+        if user_input == ':q':
+            i_should_ask = False
+        else:
+            print_player_summary(find_player(user_input,all_stats))
+
+def main():
+    base_url = "https://basketball.realgm.com/nba/stats/2018/Totals/Qualified/points/All/desc/"
+    end_url = "/Regular_Season"
     # grab stats
-    x = scrape_stats()
+    x = scrape_players(base_url, end_url)
     # create_pool(draft,x)
     ask_for_stats(x)
 
@@ -302,8 +308,7 @@ def main():
 
     '''
     #
-    # base URL "https://basketball.realgm.com/nba/stats/2018/Totals/Qualified/points/All/desc/"
-    # end URL "/Regular_Season"
+
 
     # aws db connection
     db_host = 'db-cloudgeek.cl182ry29dun.ca-central-1.rds.amazonaws.com'
@@ -320,3 +325,5 @@ def main():
     test_pswd = ''
 
     '''
+
+main()
