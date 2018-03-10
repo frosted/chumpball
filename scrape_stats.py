@@ -1,10 +1,14 @@
 from __future__ import print_function # Python 2/3 compatibility
-import requests #install requests
-from bs4 import BeautifulSoup #install BS4 & lxml
-from fuzzywuzzy import fuzz #import fuzzywuzzy
+
+# for https content, install requests
+import requests
+# for scraping, install BS4 & lxml\
+from bs4 import BeautifulSoup
+# for a relaxed search, import fuzzywuzzy
+# import python-Levenshtein to benefit from the performance
+# of python-Levenshtein for sequence matching
 from fuzzywuzzy import process
-#import python-Levenshtein to benefit from the performance
-#of python-Levenshtein for sequence matching
+
 
 
 class Player(object):
@@ -281,7 +285,7 @@ def create_pool(draft_def, draft_players):
 def ask_for_stats(all_stats):
     i_should_ask = True
     while i_should_ask:
-        user_input = raw_input('enter player name (type :q to quit): ')
+        user_input = input('enter player name (type :q to quit): ')
         if user_input == ':q':
             i_should_ask = False
         else:
