@@ -472,7 +472,7 @@ Function Write-StatsOutput {
                 <th>Player</th>
                 <th>Team</th>
                 <th>Round</th>
-                <th>Score</th>
+                <th>Value</th>
             </tr>
 "@
             $htmlBuild = $htmlBuildH.Replace('[stat heading]', 'Score')
@@ -483,7 +483,7 @@ Function Write-StatsOutput {
                 <td>$($_.Name)</td>
                 <td>$($_.Team)</td>
                 <td>$($_.Round)</td>
-                <td>$($_.Value)</td>
+                <td>$([Math]::Round($_.Value))</td>
             </tr>
 "@
             }
@@ -498,7 +498,7 @@ Function Write-StatsOutput {
                 <td>$($_.Name)</td>
                 <td>$($_.Team)</td>
                 <td>$($_.Round)</td>
-                <td>$($_.Value)</td>
+                <td>$([Math]::Round($_.Value))</td>
             </tr>
 "@
             }
@@ -513,7 +513,7 @@ Function Write-StatsOutput {
                 <td>$($_.Name)</td>
                 <td>$($_.Team)</td>
                 <td>$($_.Round)</td>
-                <td>$($_.Value)</td>
+                <td>$([Math]::Round($_.Value))</td>
             </tr>
 "@
             }
@@ -528,7 +528,7 @@ Function Write-StatsOutput {
                 <td>$($_.Name)</td>
                 <td>$($_.Team)</td>
                 <td>$($_.Round)</td>
-                <td>$($_.Value)</td>
+                <td>$([Math]::Round($_.Value))</td>
             </tr>
 "@
             }
@@ -543,7 +543,7 @@ Function Write-StatsOutput {
                 <td>$($_.Name)</td>
                 <td>$($_.Team)</td>
                 <td>$($_.Round)</td>
-                <td>$($_.Value)</td>
+                <td>$([Math]::Round($_.Value))</td>
             </tr>
 "@
             }
@@ -558,7 +558,7 @@ Function Write-StatsOutput {
                 <td>$($_.Name)</td>
                 <td>$($_.Team)</td>
                 <td>$($_.Round)</td>
-                <td>$($_.Value)</td>
+                <td>$([Math]::Round($_.Value))</td>
             </tr>
 "@
             }
@@ -573,7 +573,7 @@ Function Write-StatsOutput {
                 <td>$($_.Name)</td>
                 <td>$($_.Team)</td>
                 <td>$($_.Round)</td>
-                <td>$($_.Value)</td>
+                <td>$([Math]::Round($_.Value))</td>
             </tr>
 "@
             }
@@ -588,7 +588,7 @@ Function Write-StatsOutput {
                 <td>$($_.Name)</td>
                 <td>$($_.Team)</td>
                 <td>$($_.Round)</td>
-                <td>$($_.Value)</td>
+                <td>$([Math]::Round($_.Value))</td>
             </tr>
 "@
             }
@@ -603,7 +603,7 @@ Function Write-StatsOutput {
                 <td>$($_.Name)</td>
                 <td>$($_.Team)</td>
                 <td>$($_.Round)</td>
-                <td>$($_.Value)</td>
+                <td>$([Math]::Round($_.Value))</td>
             </tr>
 "@
             }
