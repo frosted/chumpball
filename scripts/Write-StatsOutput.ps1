@@ -118,27 +118,6 @@ Function Write-StatsOutput {
         box-sizing: border-box;
         }
 
-        .row {
-        display: flex;
-        margin-left:0px;
-        margin-right:0px;
-        }
-
-        .columna {
-        flex: 50%;
-        padding: 5px;
-        }
-
-        .columnb {
-        flex: 70%;
-        padding: 5px;
-        }
-
-        .columnc {
-        flex: 30%;
-        padding: 5px;
-        }
-
         table {
             border-collapse: collapse;
             border-spacing: 0;
@@ -184,6 +163,7 @@ Function Write-StatsOutput {
         
         .blue { color: #185875; }
         .yellow { color: #FFF842; }
+        .invisible { color: #1F2739; }
         
         .container th h1 {
               font-weight: bold;
@@ -251,32 +231,175 @@ Function Write-StatsOutput {
               transition-property: all;
           transition-timing-function: line;
         }
-        
-        @media (max-width: 800px) {
-        .container td:nth-child(4),
-        .container th:nth-child(4) { display: none; }
+
+        grid container */
+        .right-sidebar-grid {
+            display:grid;
+            grid-template-areas:
+                'header'
+                'main-content'
+                'right-sidebar'
+                'footer';
         }
-        </style>
+        
+        /* general column padding */
+        .right-sidebar-grid > * {
+            padding:1rem;
+        }
+        
+        /* assign columns to grid areas */
+        .right-sidebar-grid > .header {
+            grid-area:header;
+        }
+        .right-sidebar-grid > .main-content {
+            grid-area:main-content;
+        }
+        .right-sidebar-grid > .right-sidebar {
+            grid-area:right-sidebar;
+        }
+        .right-sidebar-grid > .footer {
+            grid-area:footer;
+        }
+         
+        /* container */
+        .responsive-two-column-grid {
+            display:block;
+        }
+
+        /* columns */
+        .responsive-two-column-grid > * {
+            padding:1rem;
+        }
+
+        /* tablet breakpoint */
+        @media (min-width:768px) {
+            .right-sidebar-grid {
+                grid-template-columns:repeat(3, 1fr);
+                grid-template-areas:
+                    'header header header'
+                    'main-content main-content right-sidebar'
+                    'footer footer footer';
+            }
+            .responsive-two-column-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            /* Hamburger menu */
+            
+            #menu__toggle {
+                opacity: 0;
+              }
+              #menu__toggle:checked + .menu__btn > span {
+                transform: rotate(45deg);
+              }
+              #menu__toggle:checked + .menu__btn > span::before {
+                top: 0;
+                transform: rotate(0deg);
+              }
+              #menu__toggle:checked + .menu__btn > span::after {
+                top: 0;
+                transform: rotate(90deg);
+              }
+              #menu__toggle:checked ~ .menu__box {
+                left: 0 !important;
+              }
+              .menu__btn {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                width: 26px;
+                height: 26px;
+                cursor: pointer;
+                z-index: 1;
+              }
+              .menu__btn > span,
+              .menu__btn > span::before,
+              .menu__btn > span::after {
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                background-color: #616161;
+                transition-duration: .25s;
+              }
+              .menu__btn > span::before {
+                content: '';
+                top: -8px;
+              }
+              .menu__btn > span::after {
+                content: '';
+                top: 8px;
+              }
+              .menu__box {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 300px;
+                height: 100%;
+                margin: 0;
+                padding: 80px 0;
+                list-style: none;
+                background-color: #ECEFF1;
+                box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+                transition-duration: .25s;
+              }
+              .menu__item {
+                display: block;
+                padding: 12px 24px;
+                color: #333;
+                font-family: 'Roboto', sans-serif;
+                font-size: 20px;
+                font-weight: 600;
+                text-decoration: none;
+                transition-duration: .25s;
+              }
+              .menu__item:hover {
+                background-color: #CFD8DC;
+              }
+            
+            
+  
+        }
+    </style>
 </head>
 <body>
-    <h1><span class="yellow">Chumpball</span> <span class="blue">Stats '23-'24</span> </h1>
-    <div class="row">
-        <div class="columna">
+<div class="hamburger-menu">
+        <input id="menu__toggle" type="checkbox" />
+        <label class="menu__btn" for="menu__toggle">
+        <span></span>
+        </label>
+
+        <ul class="menu__box">
+            <li><a class="menu__item" href="#cb-summary">Summary</a></li>
+            <li><a class="menu__item" href="#cb-rosters">Rosters</a></li>
+            <li><a class="menu__item" href="#cb-leaderboards">Leaderboards</a></li>
+            <li><a class="menu__item" href="#cb-bets">Bets</a></li>
+        </ul>
+        <a id="cb-summary"><span class="invisible">#</span></a>
+        <h1><span class="yellow">Chumpball</span> <span class="blue">Stats '23-'24</span> </h1>
+    </div>
+    <div class="responsive-two-column-grid">
+        <div>
             [Team A Table]
         </div>
-        <div class="columna">
+        <div>
             [Team B Table]
         </div>
     </div>
-    <div class="row">
-        <div class="columnb" style="overflow-x:auto;">
+    <div class="responsive-two-column-grid">
+        <div>
+            <a id="cb-rosters"><span class="invisible">#</span></a>
             <h1>Rosters</h1>
             [Team Rosters]
         </div>
-        <div class="columnc">
+        <div>
+            <a id="cb-leaderboard"><span class="invisible">#</span></a>
             <h1>Leaderboard</h1>
             [Stat Leaders]
             <h1>Bets</H1>
+            <a id="cb-bets"></a>
             [Add Table]
         </div>
     </div>
