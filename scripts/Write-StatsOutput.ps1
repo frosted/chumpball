@@ -113,6 +113,11 @@ Function Write-StatsOutput {
 <head>
     <title>Chumpball Statistics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="$(get-Date)" />
+    <meta http-equiv="pragma" content="no-cache" />
     <style>
         * {
         box-sizing: border-box;
@@ -377,9 +382,9 @@ Function Write-StatsOutput {
             <li><a class="menu__item" href="#cb-leaderboards">Leaderboards</a></li>
             <li><a class="menu__item" href="#cb-bets">Bets</a></li>
         </ul>
-        <a id="cb-summary"><span class="invisible">#</span></a>
-        <h1><span class="yellow">Chumpball</span> <span class="blue">Stats '23-'24</span> </h1>
     </div>
+    <a id="cb-summary"><span class="invisible">#</span></a>
+    <h1><span class="yellow">Chumpball</span> <span class="blue">Stats '23-'24</span> </h1>
     <div class="responsive-two-column-grid">
         <div>
             [Team A Table]
