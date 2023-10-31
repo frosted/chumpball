@@ -128,7 +128,7 @@ Function Write-StatsOutput {
             border-spacing: 0;
             width: 100%;
             border: 1px solid #ddd;
-          }
+        }
 
         @charset "UTF-8";
         @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
@@ -171,10 +171,10 @@ Function Write-StatsOutput {
         .invisible { color: #1F2739; }
         
         .container th h1 {
-              font-weight: bold;
-              font-size: 1em;
-          text-align: left;
-          color: #185875;
+            font-weight: bold;
+            font-size: 1em;
+            text-align: left;
+            color: #185875;
         }
         
         .container td {
@@ -195,17 +195,19 @@ Function Write-StatsOutput {
         }
         
         .container td, .container th {
-              padding-bottom: 2%;
-              padding-top: 2%;
-          padding-left:2%;  
+            padding-bottom: 2%;
+            padding-top: 2%;
+            padding-left:2%;  
         }
         
         /* Background-color of the odd rows */
+        
         .container tr:nth-child(odd) {
               background-color: #323C50;
         }
         
         /* Background-color of the even rows */
+        
         .container tr:nth-child(even) {
               background-color: #2C3446;
         }
@@ -224,20 +226,21 @@ Function Write-StatsOutput {
         }
         
         .container td:hover {
-          background-color: #FFF842;
-          color: #403E10;
-          font-weight: bold;
-          
-          box-shadow: #7F7C21 -1px 1px, #7F7C21 -2px 2px, #7F7C21 -3px 3px, #7F7C21 -4px 4px, #7F7C21 -5px 5px, #7F7C21 -6px 6px;
-          transform: translate3d(6px, -6px, 0);
-          
-          transition-delay: 0s;
-              transition-duration: 0.4s;
-              transition-property: all;
-          transition-timing-function: line;
+            background-color: #FFF842;
+            color: #403E10;
+            font-weight: bold;
+            
+            box-shadow: #7F7C21 -1px 1px, #7F7C21 -2px 2px, #7F7C21 -3px 3px, #7F7C21 -4px 4px, #7F7C21 -5px 5px, #7F7C21 -6px 6px;
+            transform: translate3d(6px, -6px, 0);
+            
+            transition-delay: 0s;
+            transition-duration: 0.4s;
+            transition-property: all;
+            transition-timing-function: line;
         }
 
-        grid container */
+        /* grid container */
+        
         .right-sidebar-grid {
             display:grid;
             grid-template-areas:
@@ -248,11 +251,13 @@ Function Write-StatsOutput {
         }
         
         /* general column padding */
+        
         .right-sidebar-grid > * {
             padding:1rem;
         }
         
         /* assign columns to grid areas */
+        
         .right-sidebar-grid > .header {
             grid-area:header;
         }
@@ -267,14 +272,114 @@ Function Write-StatsOutput {
         }
          
         /* container */
+        
         .responsive-two-column-grid {
             display:block;
         }
 
         /* columns */
+        
         .responsive-two-column-grid > * {
             padding:1rem;
         }
+
+        /* Nav */
+    
+        header {
+            overflow: hidden;
+            background: #185875;
+            position: fixed;
+            width: 100%;
+            opacity: 75%;
+          }
+          
+          header a, header label {
+            display: block;
+            padding: 20px;
+            color: #fff;
+            text-decoration: none;
+            line-height: 20px;
+          }
+          
+          header a:hover, header label:hover { color: #aaa; }
+          
+          header label {
+            float: right;
+            padding: 18px 20px;
+            cursor: pointer;
+          }
+          
+          header label:after {
+            content: "\2261";
+            font-size: 1.8em;
+          }
+          
+          .logo {
+            float: left;
+            font-weight: bold;
+            font-size: 1.5em;
+          }
+            
+          nav {
+            float: right;
+            max-height: 0;
+            width: 100%;
+            -webkit-transition: max-height 0.3s; 
+               -moz-transition: max-height 0.3s;
+                 -o-transition: max-height 0.3s;
+                    transition: max-height 0.3s;
+          }
+          
+          nav ul {
+            margin: 0;
+            padding: 0;
+             padding-bottom: 10px;
+          }
+            
+          nav li {
+            display: block;
+            text-align: center;
+          }
+            
+          nav a {
+            padding: 10px;
+            width: 100%;
+          }
+          
+          #nav { display: none; }
+          
+          #nav:checked ~ nav {
+            max-height: 200px; /* This can be anything bigger than your nav height. The transition duration works with this */
+          }
+          
+          @media only screen and (min-width: 700px) {
+            
+            header label { display: none; }
+            
+            nav {
+              width: auto;
+              max-height: none;
+            }
+            
+            nav ul {
+              padding: 0;
+              padding-right: 10px;
+            }
+            
+            nav li {
+              display: inline-block;
+              text-align: left;
+            }
+            
+            header nav a {
+              display: inline-block;
+              padding: 20px 10px;
+              width: auto;
+            }
+            
+          }
+          
+
 
         /* tablet breakpoint */
         @media (min-width:768px) {
@@ -285,106 +390,29 @@ Function Write-StatsOutput {
                     'main-content main-content right-sidebar'
                     'footer footer footer';
             }
-            .responsive-two-column-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-            }
-
-            /* Hamburger menu */
-            
-            #menu__toggle {
-                opacity: 0;
-              }
-              #menu__toggle:checked + .menu__btn > span {
-                transform: rotate(45deg);
-              }
-              #menu__toggle:checked + .menu__btn > span::before {
-                top: 0;
-                transform: rotate(0deg);
-              }
-              #menu__toggle:checked + .menu__btn > span::after {
-                top: 0;
-                transform: rotate(90deg);
-              }
-              #menu__toggle:checked ~ .menu__box {
-                left: 0 !important;
-              }
-              .menu__btn {
-                position: fixed;
-                top: 20px;
-                left: 20px;
-                width: 26px;
-                height: 26px;
-                cursor: pointer;
-                z-index: 1;
-              }
-              .menu__btn > span,
-              .menu__btn > span::before,
-              .menu__btn > span::after {
-                display: block;
-                position: absolute;
-                width: 100%;
-                height: 2px;
-                background-color: #616161;
-                transition-duration: .25s;
-              }
-              .menu__btn > span::before {
-                content: '';
-                top: -8px;
-              }
-              .menu__btn > span::after {
-                content: '';
-                top: 8px;
-              }
-              .menu__box {
-                display: block;
-                position: fixed;
-                top: 0;
-                left: -100%;
-                width: 300px;
-                height: 100%;
-                margin: 0;
-                padding: 80px 0;
-                list-style: none;
-                background-color: #ECEFF1;
-                box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
-                transition-duration: .25s;
-              }
-              .menu__item {
-                display: block;
-                padding: 12px 24px;
-                color: #333;
-                font-family: 'Roboto', sans-serif;
-                font-size: 20px;
-                font-weight: 600;
-                text-decoration: none;
-                transition-duration: .25s;
-              }
-              .menu__item:hover {
-                background-color: #CFD8DC;
-              }
-            
-            
-  
+        .responsive-two-column-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
         }
     </style>
 </head>
 <body>
-<div class="hamburger-menu">
-        <input id="menu__toggle" type="checkbox" />
-        <label class="menu__btn" for="menu__toggle">
-        <span></span>
-        </label>
+    <header>
+        <p class="logo"><span class="yellow">Chumpball</span> Fantasy Basketball 2023-2024</p>
+        <input id="nav" type="checkbox">
+        <label for="nav"></label>
+        <nav>
+            <ul>
+                <li><a href="#cb-summary">Summary</a></li>
+                <li><a href="#cb-rosters">Rosters</a></li>
+                <li><a href="#cb-leaderboards">Leaderboards</a></li>
+                <li><a href="#cb-bets">Bets</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <ul class="menu__box">
-            <li><a class="menu__item" href="#cb-summary">Summary</a></li>
-            <li><a class="menu__item" href="#cb-rosters">Rosters</a></li>
-            <li><a class="menu__item" href="#cb-leaderboards">Leaderboards</a></li>
-            <li><a class="menu__item" href="#cb-bets">Bets</a></li>
-        </ul>
-    </div>
-    <a id="cb-summary"><span class="invisible">#</span></a>
-    <h1><span class="yellow">Chumpball</span> <span class="blue">Stats '23-'24</span> </h1>
+    <a id="cb-summary"><span class="invisible">A</span></a>
+    <br><br><br>
     <div class="responsive-two-column-grid">
         <div>
             [Team A Table]
@@ -400,7 +428,7 @@ Function Write-StatsOutput {
             [Team Rosters]
         </div>
         <div>
-            <a id="cb-leaderboard"><span class="invisible">#</span></a>
+            <a id="cb-leaderboards"><span class="invisible">#</span></a>
             <h1>Leaderboard</h1>
             [Stat Leaders]
             <h1>Bets</H1>
