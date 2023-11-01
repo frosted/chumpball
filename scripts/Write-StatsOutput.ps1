@@ -289,8 +289,9 @@ Function Write-StatsOutput {
             overflow: hidden;
             background: #185875;
             position: fixed;
-            width: 100%;
+            width: 95%;
             opacity: 75%;
+            margin: auto:
           }
           
           header a, header label {
@@ -299,6 +300,7 @@ Function Write-StatsOutput {
             color: #fff;
             text-decoration: none;
             line-height: 20px;
+            margin: auto;
           }
           
           header a:hover, header label:hover { color: #aaa; }
@@ -323,7 +325,7 @@ Function Write-StatsOutput {
           nav {
             float: right;
             max-height: 0;
-            width: 100%;
+            width: 95%;
             -webkit-transition: max-height 0.3s; 
                -moz-transition: max-height 0.3s;
                  -o-transition: max-height 0.3s;
