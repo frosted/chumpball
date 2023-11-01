@@ -44,3 +44,4 @@ Write-StatsOutput -RosterInput $rosterStats -toHTML -AddTable $bets
 git status
 git add .
 git commit -m 'updated stats'
+git push

@@ -24,7 +24,7 @@ Function Write-StatsOutput {
                     @{Name = 'Owner'; Expression = { $owner } }, `
                     @{Name = 'Score'; Expression = { $RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamA' } | Measure-Object -Property FV -Sum | Select-Object -ExpandProperty Sum } }, `
                     @{Name = 'Games'; Expression = { $RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamA' } | Measure-Object -Property GP -Sum | Select-Object -ExpandProperty Sum } }, `
-                    @{Name = 'Average'; Expression = { [Math]::Round(($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamA' } | Measure-Object -Property FVPG -Sum | Select-Object -ExpandProperty Sum) / 5, 2) } }
+                    @{Name = 'Average'; Expression = { [Math]::Round((($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamA' } | Measure-Object -Property FV -Sum | Select-Object -ExpandProperty Sum) / ($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamA' } | Measure-Object -Property GP -Sum | Select-Object -ExpandProperty Sum)) * 100, 2) } }
                 ))
         }
         # build team b summary
@@ -34,7 +34,7 @@ Function Write-StatsOutput {
                     @{Name = 'Owner'; Expression = { $owner } }, `
                     @{Name = 'Score'; Expression = { $RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Measure-Object -Property FV -Sum | Select-Object -ExpandProperty Sum } }, `
                     @{Name = 'Games'; Expression = { $RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Measure-Object -Property GP -Sum | Select-Object -ExpandProperty Sum } }, `
-                    @{Name = 'Average'; Expression = { [Math]::Round(($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Measure-Object -Property FVPG -Sum | Select-Object -ExpandProperty Sum) / 5, 2) } }
+                    @{Name = 'Average'; Expression = { [Math]::Round((($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Measure-Object -Property FV -Sum | Select-Object -ExpandProperty Sum) / ($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Measure-Object -Property GP -Sum | Select-Object -ExpandProperty Sum)) * 100, 2) } }
                 ))
         }
         
