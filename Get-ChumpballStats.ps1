@@ -40,3 +40,7 @@ If (Test-Path -Path "$rootFolder\config\bets.csv") {
 }
 
 Write-StatsOutput -RosterInput $rosterStats -toHTML -AddTable $bets
+
+git status
+git add .
+git commit -m 'updated stats'
