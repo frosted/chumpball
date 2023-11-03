@@ -3,7 +3,10 @@ Function Add-RosterRanking {
     param (
         [Parameter()]
         [Object]
-        $RosterInput
+        $RosterInput,
+        [Parameter(Mandatory)]
+        [Object]
+        $StandingsInput
     )
     
     begin {
@@ -26,6 +29,14 @@ Function Add-RosterRanking {
                 Name = 'PosRk'; Expression = { Set-Variable -Scope 1 rank ($rank + 1); $rank } 
             }
         }
+
+
+        $RosterInput = foreach ($entry in $RosterInput) {
+            $entry | Select-Object *, @{ name = 'missed'; expression = {
+                    $(($StandingsInput | Where-Object tm -eq $entry.team | Select-Object -ExpandProperty gp) - $entry.gp)
+                } 
+            }
+        } 
 
         $rosterOutput = [System.Collections.Generic.List[object]]::new()
         $RosterInput | Where-Object { ($_.Pos -eq 'C' -and $_.PosRk -eq 1) -or ($_.Pos -eq 'F' -and $_.PosRk -le 2) -or ($_.Pos -eq 'G' -and $_.PosRk -le 2) } | Select-Object *, @{Name = 'Assignment'; Expression = { 'TeamA' } } | ForEach-Object { Write-Verbose "$($_.Name) assigned to $($_.Owner)'s $($_.Assignment)"; $rosterOutput.Add($_) }

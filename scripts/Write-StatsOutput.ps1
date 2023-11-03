@@ -24,7 +24,8 @@ Function Write-StatsOutput {
                     @{Name = 'Owner'; Expression = { $owner } }, `
                     @{Name = 'Score'; Expression = { $RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamA' } | Measure-Object -Property FV -Sum | Select-Object -ExpandProperty Sum } }, `
                     @{Name = 'Games'; Expression = { $RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamA' } | Measure-Object -Property GP -Sum | Select-Object -ExpandProperty Sum } }, `
-                    @{Name = 'Average'; Expression = { [Math]::Round(( ($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamA' } | Measure-Object -Property FV -Sum | Select-Object -ExpandProperty Sum) / ($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamA' } | Measure-Object -Property GP -Sum | Select-Object -ExpandProperty Sum) ), 2) } }
+                    @{Name = 'Missed'; Expression = { $RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamA' } | Measure-Object -Property Missed -Sum | Select-Object -ExpandProperty Sum } }, `
+                    @{Name = 'Average'; Expression = { ([Math]::Round(( ($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamA' } | Measure-Object -Property FV -Sum | Select-Object -ExpandProperty Sum) / ($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamA' } | Measure-Object -Property GP -Sum | Select-Object -ExpandProperty Sum) ), 2) ).ToString("F2") } }
                 ))
         }
         # build team b summary
@@ -34,7 +35,8 @@ Function Write-StatsOutput {
                     @{Name = 'Owner'; Expression = { $owner } }, `
                     @{Name = 'Score'; Expression = { $RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Measure-Object -Property FV -Sum | Select-Object -ExpandProperty Sum } }, `
                     @{Name = 'Games'; Expression = { $RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Measure-Object -Property GP -Sum | Select-Object -ExpandProperty Sum } }, `
-                    @{Name = 'Average'; Expression = { [Math]::Round(( ($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Measure-Object -Property FV -Sum | Select-Object -ExpandProperty Sum) / ($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Measure-Object -Property GP -Sum | Select-Object -ExpandProperty Sum) ), 2) } }
+                    @{Name = 'Missed'; Expression = { $RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Measure-Object -Property Missed -Sum | Select-Object -ExpandProperty Sum } }, `
+                    @{Name = 'Average'; Expression = { ([Math]::Round(( ($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Measure-Object -Property FV -Sum | Select-Object -ExpandProperty Sum) / ($RosterInput | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Measure-Object -Property GP -Sum | Select-Object -ExpandProperty Sum) ), 2)).ToString("F2") } }
                 ))
         }
         
@@ -85,6 +87,12 @@ Function Write-StatsOutput {
         $summaryTopTOV = $RosterInput | Sort-Object TOV -Descending | Select-Object -First 5 @{ 
             Name = '#'; Expression = { Set-Variable -Scope 1 rank ($rank + 1); $rank }
         }, Name, Team, Round, @{Name = 'Value'; Expression = { $_.TOV } }
+
+        # ranking missed
+        $rank = 0
+        $summaryTopMissed = $RosterInput | Sort-Object Missed -Descending | Select-Object -First 5 @{ 
+            Name = '#'; Expression = { Set-Variable -Scope 1 rank ($rank + 1); $rank }
+        }, Name, Team, Round, @{Name = 'Value'; Expression = { $_.Missed } }
 
         # ranking centers
         $rank = 0
@@ -449,6 +457,7 @@ Function Write-StatsOutput {
                     <th>#</th>
                     <th>Owner</th>
                     <th>Games</th>
+                    <th>Missed</th>
                     <th>Team A</th>
                     <th>Average</th>
                 </tr>
@@ -459,6 +468,7 @@ Function Write-StatsOutput {
                     <td>$(($summaryObjectA | Where-Object {$_.'#' -eq $i}).'#')</td>
                     <td>$(($summaryObjectA | Where-Object {$_.'#' -eq $i}).'Owner')</td>
                     <td>$(($summaryObjectA | Where-Object {$_.'#' -eq $i}).'Games')</td>
+                    <td>$(($summaryObjectA | Where-Object {$_.'#' -eq $i}).'Missed')</td>
                     <td>$(($summaryObjectA | Where-Object {$_.'#' -eq $i}).'Score')</td>
                     <td>$(($summaryObjectA | Where-Object {$_.'#' -eq $i}).'Average')</td>
                 </tr>
@@ -478,6 +488,7 @@ Function Write-StatsOutput {
                     <th>#</th>
                     <th>Owner</th>
                     <th>Games</th>
+                    <th>Missed</th>
                     <th>Team B</th>
                     <th>Average</th>
                 </tr>
@@ -488,6 +499,7 @@ Function Write-StatsOutput {
                     <td>$(($summaryObjectB | Where-Object {$_.'#' -eq $i}).'#')</td>
                     <td>$(($summaryObjectB | Where-Object {$_.'#' -eq $i}).'Owner')</td>
                     <td>$(($summaryObjectB | Where-Object {$_.'#' -eq $i}).'Games')</td>
+                    <td>$(($summaryObjectB | Where-Object {$_.'#' -eq $i}).'Missed')</td>
                     <td>$(($summaryObjectB | Where-Object {$_.'#' -eq $i}).'Score')</td>
                     <td>$(($summaryObjectB | Where-Object {$_.'#' -eq $i}).'Average')</td>
                 </tr>
@@ -509,6 +521,7 @@ Function Write-StatsOutput {
             <th>Pos</th>
             <th>Rd</th>
             <th>GP</th>
+            <th>MIA</th>
             <th>Pts</th>
             <th>Reb</th>
             <th>Ast</th>
@@ -534,12 +547,13 @@ Function Write-StatsOutput {
             <td>$($_.Pos)</td>
             <td>$($_.Round)</td>
             <td>$($_.GP)</td>
+            <td>$($_.Missed)</td>
             <td>$($_.Pts)</td>
             <td>$($_.Reb)</td>
             <td>$($_.Ast)</td>
             <td>$($_.TOV)</td>
             <td>$($_.FV)</td>
-            <td>$([Math]::Round($_.FVPG,2))</td>
+            <td>$(([Math]::Round($_.FVPG,2)).ToString("F2"))</td>
         </tr>
 "@
                 }
@@ -547,12 +561,13 @@ Function Write-StatsOutput {
         <tr>
         <td colspan="4" Align="right"=>Team A Totals:</td>
             <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamA'} | Measure-Object -Property GP -sum).Sum)</td>
+            <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamA'} | Measure-Object -Property Missed -sum).Sum)</td>
             <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamA'} | Measure-Object -Property PTS -sum).Sum)</td>
             <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamA'} | Measure-Object -Property REB -sum).Sum)</td>
             <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamA'} | Measure-Object -Property AST -sum).Sum)</td>
             <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamA'} | Measure-Object -Property TOV -sum).Sum)</td>
             <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamA'} | Measure-Object -Property FV -sum).Sum)</td>
-            <td>$([Math]::Round(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamA'} | Measure-Object -Property FVPG -sum).Sum,2))</td>
+            <td>$(([Math]::Round(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamA'} | Measure-Object -Property FVPG -sum).Sum,2)).ToString("F2"))</td>
         </tr>
 "@
                 $rosterStats | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'TeamB' } | Sort-Object -Property Pos  | ForEach-Object {
@@ -563,12 +578,13 @@ Function Write-StatsOutput {
                 <td>$($_.Pos)</td>
                 <td>$($_.Round)</td>
                 <td>$($_.GP)</td>
+                <td>$($_.Missed)</td>
                 <td>$($_.Pts)</td>
                 <td>$($_.Reb)</td>
                 <td>$($_.Ast)</td>
                 <td>$($_.TOV)</td>
                 <td>$($_.FV)</td>
-                <td>$([Math]::Round($_.FVPG,2))</td>
+                <td>$(([Math]::Round($_.FVPG,2)).ToString("F2"))</td>
             </tr>
 "@
                 }
@@ -576,12 +592,13 @@ Function Write-StatsOutput {
             <tr>
                 <td colspan="4" Align="right"=>Team B Totals:</td>
                 <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamB'} | Measure-Object -Property GP -sum).Sum)</td>
+                <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamB'} | Measure-Object -Property Missed -sum).Sum)</td>
                 <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamB'} | Measure-Object -Property PTS -sum).Sum)</td>
                 <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamB'} | Measure-Object -Property REB -sum).Sum)</td>
                 <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamB'} | Measure-Object -Property AST -sum).Sum)</td>
                 <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamB'} | Measure-Object -Property TOV -sum).Sum)</td>
                 <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamB'} | Measure-Object -Property FV -sum).Sum)</td>
-                <td>$([Math]::Round(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamB'} | Measure-Object -Property FVPG -sum).Sum,2))</td>
+                <td>$(([Math]::Round(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'TeamB'} | Measure-Object -Property FVPG -sum).Sum,2)).ToString("F2"))</td>
             </tr>
 "@
                 $rosterStats | Where-Object { $_.Owner -eq $owner -and $_.Assignment -eq 'Bench' } | Sort-Object -Property Pos  | ForEach-Object {
@@ -592,12 +609,13 @@ Function Write-StatsOutput {
                 <td>$($_.Pos)</td>
                 <td>$($_.Round)</td>
                 <td>$($_.GP)</td>
+                <td>$($_.Missed)</td>
                 <td>$($_.Pts)</td>
                 <td>$($_.Reb)</td>
                 <td>$($_.Ast)</td>
                 <td>$($_.TOV)</td>
                 <td>$($_.FV)</td>
-                <td>$([Math]::Round($_.FVPG,2))</td>
+                <td>$(([Math]::Round($_.FVPG,2)).ToString("F2"))</td>
             </tr>
 "@
                 }
@@ -605,12 +623,13 @@ Function Write-StatsOutput {
             <tr>
                 <td colspan="4" Align="right"=>Bench Totals:</td>
                 <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'Bench'} | Measure-Object -Property GP -sum).Sum)</td>
+                <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'Bench'} | Measure-Object -Property Missed -sum).Sum)</td>
                 <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'Bench'} | Measure-Object -Property PTS -sum).Sum)</td>
                 <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'Bench'} | Measure-Object -Property REB -sum).Sum)</td>
                 <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'Bench'} | Measure-Object -Property AST -sum).Sum)</td>
                 <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'Bench'} | Measure-Object -Property TOV -sum).Sum)</td>
                 <td>$(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'Bench'} | Measure-Object -Property FV -sum).Sum)</td>
-                <td>$([Math]::Round(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'Bench'} | Measure-Object -Property FVPG -sum).Sum,2))</td>
+                <td>$(([Math]::Round(($rosterStats | Where-Object {$_.Owner -eq $owner -and $_.Assignment -eq 'Bench'} | Measure-Object -Property FVPG -sum).Sum,2)).ToString("F2"))</td>
             </tr>
         </table>
 "@
@@ -710,6 +729,36 @@ Function Write-StatsOutput {
 "@
             $htmlBuild += $htmlBuildH.Replace('[stat heading]', 'Turnovers')
             $summaryTopTOV | ForEach-Object { 
+                $htmlBuild += @"
+            <tr>
+                <td>$($_.'#')</td>
+                <td>$($_.Name)</td>
+                <td>$($_.Team)</td>
+                <td>$($_.Round)</td>
+                <td>$([Math]::Round($_.Value))</td>
+            </tr>
+"@
+            }
+            $htmlBuild += @"
+        </table>
+"@
+            $htmlBuild += $htmlBuildH.Replace('[stat heading]', 'Turnovers')
+            $summaryTopTOV | ForEach-Object { 
+                $htmlBuild += @"
+            <tr>
+                <td>$($_.'#')</td>
+                <td>$($_.Name)</td>
+                <td>$($_.Team)</td>
+                <td>$($_.Round)</td>
+                <td>$([Math]::Round($_.Value))</td>
+            </tr>
+"@
+            }
+            $htmlBuild += @"
+        </table>
+"@
+            $htmlBuild += $htmlBuildH.Replace('[stat heading]', 'Missed Games')
+            $summaryTopMissed | ForEach-Object { 
                 $htmlBuild += @"
             <tr>
                 <td>$($_.'#')</td>

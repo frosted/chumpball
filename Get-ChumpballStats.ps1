@@ -14,6 +14,13 @@
     Does what it says.  Verbose will provide more information to your screen than you probably want.
 #>
 
+[CmdletBinding()]
+param (
+    [Parameter()]
+    [Switch]
+    $Push
+)
+
 $Script:rootFolder = $PSScriptRoot
 
 #$rosterFile = $rootFolder + '\config\rosters.csv'
@@ -27,13 +34,17 @@ $requiredModules | ForEach-Object {
     If (!(Get-Module -Name $_)) {
         # install join module
         Install-Module $_ -AllowClobber
-        Import-Module $_
+        Import-Module $_ -WarningAction SilentlyContinue
     }
 }
 
+
+
 $rosterStats = Update-RosterStats -CSVFilePath "$rootFolder\config\rosters.csv" -Uri 'https://basketball.realgm.com/nba/stats/2024/Totals/All/points/All/desc/<#>/Regular_Season'
 
-$RosterStats = Add-RosterRanking -RosterInput $rosterStats
+$teamStandings = Get-TeamStandings -Uri 'https://basketball.realgm.com/nba/standings'
+
+$RosterStats = Add-RosterRanking -RosterInput $rosterStats -StandingsInput $teamStandings
 
 If (Test-Path -Path "$rootFolder\config\bets.csv") {
     $bets = Import-Csv -Path "$rootFolder\config\bets.csv"
@@ -41,8 +52,9 @@ If (Test-Path -Path "$rootFolder\config\bets.csv") {
 
 Write-StatsOutput -RosterInput $rosterStats -toHTML -AddTable $bets
 
-
-git status
-git add .
-git commit -m 'updated stats'
-git push
+If ($Push) {
+    git status
+    git add .
+    git commit -m 'updated stats'
+    git push
+}
