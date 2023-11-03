@@ -439,7 +439,7 @@ Function Write-StatsOutput {
         </div>
         <div>
             <a id="cb-leaderboards"><span class="invisible">#</span></a>
-            <h1>Leaderboard</h1>
+            <h1>Leaderboards</h1>
             [Stat Leaders]
             <h1>Bets</H1>
             <a id="cb-bets"></a>
