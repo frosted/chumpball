@@ -840,11 +840,11 @@ Function Write-StatsOutput {
         Write-Output '--------------------'
         Write-Output 'Team A Summary'
         Write-Output '--------------------'
-        $summaryObjectA | Format-Table -AutoSize -RepeatHeader
+        $summaryObjectA | Format-Table -AutoSize
 
         Write-Output '--------------------'
         Write-Output 'Team B Summary'
         Write-Output '--------------------' 
-        $summaryObjectB | Format-Table -AutoSize -RepeatHeader
+        $summaryObjectB | Format-Table -AutoSize
     }
 }
