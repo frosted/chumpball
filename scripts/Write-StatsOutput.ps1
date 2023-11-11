@@ -122,9 +122,7 @@ Function Write-StatsOutput {
     <title>Chumpball Statistics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
-    <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="expires" content="0" />
-    <meta http-equiv="expires" content="$(get-Date)" />
     <meta http-equiv="pragma" content="no-cache" />
     <style>
         * {
@@ -408,7 +406,7 @@ Function Write-StatsOutput {
 </head>
 <body>
     <header>
-        <p class="logo"><span class="yellow">Chumpball</span> Fantasy Basketball 2023-2024</p>
+        <p class="logo"><span class="yellow">Chumpball</span> Fantasy Basketball</p>
         <input id="nav" type="checkbox">
         <label for="nav"></label>
         <nav>
@@ -446,6 +444,9 @@ Function Write-StatsOutput {
             [Add Table]
         </div>
     </div>
+    <footer>
+        <p align="center">2023-2024 season stats last updated: $(Get-Date)</p>
+    </footer>
 </body>
 </html>
 "@
