@@ -124,7 +124,7 @@ Function Write-StatsOutput {
     <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
     <meta http-equiv="expires" content="0" />
     <meta http-equiv="pragma" content="no-cache" />
-    <link rel="stylesheet" href="https://frosted.github.io/chumpball/style-two-column.css?v=$($strDateTime)">
+    <link rel="stylesheet" href="https://frosted.github.io/chumpball/scripts/style-two-column.css?v=$($strDateTime)">
 </head>
 <body>
     <header>
