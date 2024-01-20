@@ -23,6 +23,8 @@ param (
 
 $Script:rootFolder = $PSScriptRoot
 
+start-transcript -Path "$Script:rootFolder\get-chumpballstats.log"
+
 #$rosterFile = $rootFolder + '\config\rosters.csv'
 $requiredModules = @('JoinModule')
 
@@ -58,3 +60,5 @@ If ($Push) {
     git commit -m 'updated stats'
     git push
 }
+
+Stop-Transcript
