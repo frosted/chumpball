@@ -23,7 +23,7 @@ param (
 
 $Script:rootFolder = $PSScriptRoot
 
-start-transcript -Path "$Script:rootFolder\get-chumpballstats.log"
+start-transcript -Path "c:\get-chumpballstats.log"
 
 #$rosterFile = $rootFolder + '\config\rosters.csv'
 $requiredModules = @('JoinModule')
