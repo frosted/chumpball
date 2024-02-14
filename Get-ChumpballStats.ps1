@@ -55,7 +55,10 @@ If (Test-Path -Path "$rootFolder\config\bets.csv") {
 Write-StatsOutput -RosterInput $rosterStats -toHTML -AddTable $bets
 
 If ($Push) {
+    Set-Location $Script:rootFolder
     git status
+    git config --global user.email "pe.frost@gmail.com"
+    git config --global user.name "Ed"
     git add .
     git commit -m 'updated stats'
     git push
