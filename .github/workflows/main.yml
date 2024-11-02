@@ -11,9 +11,5 @@ jobs:
           run: |
             . .\Get-PlayerData.ps1
             Get-PlayerData -StoredQuery SeasonData -Year 2025 | export-Csv -NoTypeInformation -Path ".\Config\2025.csv" -Force
-            $commitMsg = "[$(get-date -Format 'yyyy.MM.dd:hh.mm.ss')] Updated stats from GitHub Actions Workflow"
-            git add \Config\2025.csv
-            git commit -m $commitMsg
-            git push
           shell: pwsh
 
