@@ -1,11 +1,21 @@
-name: Build Module
-shell: pwsh
-run: |
-  . .\Get-PlayerData.ps1
-  Get-PlayerData -StoredQuery SeasonData -Year 2025 | export-Csv -NoTypeInformation -Path ".\Config\2025.csv" -Force
-  $commitMsg = "[$(get-date -Format 'yyyy.MM.dd:hh.mm.ss')] Updated stats from GitHub Actions Workflow"
-  git config --global user.email "pe.frost@gmail.com"
-  git config --global user.name "Ed"
-  git add \Config\2025.csv
-  git commit -m $commitMsg
-  git push
+name: Multiline
+on: [workflow_dispatch]
+
+jobs:
+    build:
+      name: Run Script
+      runs-on: windows-latest
+      steps:
+        - uses: actions/checkout@v1
+        - name: Script
+          run: |
+            . .\Get-PlayerData.ps1
+            Get-PlayerData -StoredQuery SeasonData -Year 2025 | export-Csv -NoTypeInformation -Path ".\Config\2025.csv" -Force
+            $commitMsg = "[$(get-date -Format 'yyyy.MM.dd:hh.mm.ss')] Updated stats from GitHub Actions Workflow"
+            git config --global user.email "pe.frost@gmail.com"
+            git config --global user.name "Ed"
+            git add \Config\2025.csv
+            git commit -m $commitMsg
+            git push
+          shell: pwsh
+
