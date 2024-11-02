@@ -10,11 +10,11 @@ jobs:
         - name: Script
           run: |
             . .\Get-PlayerData.ps1
-            Get-PlayerData -StoredQuery SeasonData -Year 2025 | export-Csv -NoTypeInformation -Path ".\Config\2025.csv" -Force
+            Get-PlayerData -StoredQuery SeasonData -Year 2025 | export-Csv -NoTypeInformation -Path "2025.csv" -Force
             $commitMsg = "[$(get-date -Format 'yyyy.MM.dd:hh.mm.ss')]Updated stats for 2025"
             git config --local user.email "pe.frost@gmail.com"
             git config --local user.name "Ed"
-            git add \Config\2025.csv
+            git add 2025.csv
             git commit -m $commitMsg
           shell: pwsh
         - name: Push changes # push the output folder to your repo
