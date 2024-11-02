@@ -1,7 +1,7 @@
 name: StatPull
 on: 
     schedule:
-        - cron: '50 04 * * *' # Runs every day at 11:00 PM UTC
+        - cron: '56 4 * * *' # Runs every day at 11:00 PM UTC
 
 jobs:
     build:
