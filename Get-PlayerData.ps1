@@ -98,8 +98,8 @@ function Get-PlayerData {
                 $uri = 'https://basketball.realgm.com/nba/stats/<year>/Totals/All/points/All/desc/<#>/Regular_Season'
                 $uri = $uri.Replace("<year>", $Year)
                 $looping = $true; $i = 1
-                
-                while ($looping) {
+
+                While ($looping) {
                     Write-Progress -Activity "Downloading player data..." -Status "Scraping page $i...))" -PercentComplete $(Get-Random -Minimum 1 -Maximum 100) -CurrentOperation "Scraping Data"
                     $parsedHTMLresponse = ConvertFrom-Html -Url $($uri.Replace("<#>", $i)) -Engine AngleSharp
                     try {
