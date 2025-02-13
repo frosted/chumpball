@@ -67,7 +67,7 @@ function Get-PlayerData {
         ### Scrape content
         $timestamp_start = Get-Date
         # $SearchKeyEx = @("'"," ",".",",","Jr","Sr","III","II") 
-        $InvalidChars = @("'", ".", ",", "III", "II", "Jr", "Sr")
+        $InvalidChars = @("'", ".", ",", "III", "II")
         [System.Collections.Generic.List[PSCustomObject]]$PlayerList = @()
         switch ($StoredQuery) {
             'PlayerData' {
