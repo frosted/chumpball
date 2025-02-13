@@ -2,8 +2,8 @@ function Get-PlayerData {
     [CmdletBinding()]
     param (
         [string]$Year = (Get-Date -Format 'yyyy'),
-        [ValidateSet('SeasonData','PlayerData','PreseasonData')]
-        $StoredQuery='SeasonData'
+        [ValidateSet('SeasonData', 'PlayerData', 'PreseasonData')]
+        $StoredQuery = 'SeasonData'
     )
     
     begin {
@@ -67,10 +67,9 @@ function Get-PlayerData {
         ### Scrape content
         $timestamp_start = Get-Date
         # $SearchKeyEx = @("'"," ",".",",","Jr","Sr","III","II") 
-        $InvalidChars = @("'",".",",")
+        $InvalidChars = @("'", ".", ",", "III", "II", "Jr", "Sr")
         [System.Collections.Generic.List[PSCustomObject]]$PlayerList = @()
-        switch ($StoredQuery)
-        {
+        switch ($StoredQuery) {
             'PlayerData' {
                 $uri = 'https://basketball.realgm.com/nba/players'
                 $parsedHTMLresponse = ConvertFrom-Html -Url $uri -Engine AngleSharp
@@ -89,7 +88,7 @@ function Get-PlayerData {
                         $thisPlayer.'PreDraftTeam' = $_.'PreDraftTeam'
                         $thisPlayer.'DraftStatus' = $_.'DraftStatus'
                         $thisPlayer.'Nationality' = $_.'Nationality'
-                        ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char,'')}
+                        ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char, '') }
                         $PlayerList.Add($thisPlayer) 
                     }
                 }
@@ -141,12 +140,13 @@ function Get-PlayerData {
                             $thisPlayer.'PF' = $_.'PF'
                             $thisPlayer.'Score' = [int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)
                             $thisPlayer.'AVG' = ([int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)) / $_.'GP'
-                            ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char,'')}
+                            ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char, '') }
                             $PlayerList.Add($thisPlayer)  
                         }
                         Remove-Variable convertedHTMLresponse
                         $i++
-                    } else {
+                    }
+                    else {
                         $looping = $false
                     }
                 }
@@ -199,12 +199,13 @@ function Get-PlayerData {
                             $thisPlayer.'PF' = $_.'PF'
                             $thisPlayer.'Score' = [int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)
                             $thisPlayer.'AVG' = ([int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)) / [int]$_.'GP'
-                            ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char,'')}
+                            ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char, '') }
                             $PlayerList.Add($thisPlayer) 
                         }
                         Remove-Variable convertedHTMLresponse
                         $i++
-                    } else {
+                    }
+                    else {
                         $looping = $false
                     }
                 }
