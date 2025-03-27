@@ -42,7 +42,8 @@ $requiredModules | ForEach-Object {
 
 
 
-$rosterStats = Update-RosterStats -CSVFilePath "$rootFolder\config\rosters.csv" -Uri 'https://basketball.realgm.com/nba/stats/2024/Totals/All/points/All/desc/<#>/Regular_Season'
+# $rosterStats = Update-RosterStats -CSVFilePath "$rootFolder\config\rosters.csv" -Uri 'https://basketball.realgm.com/nba/stats/2024/Totals/All/points/All/desc/<#>/Regular_Season'
+$rosterStats = Update-RosterStats -CSVFilePath "$rootFolder\config\rosters.csv" -Uri 'https://basketball.realgm.com/nba/stats/2024/Totals/All/points/All/desc/Regular_Season'
 
 $teamStandings = Get-TeamStandings -Uri 'https://basketball.realgm.com/nba/standings'
 

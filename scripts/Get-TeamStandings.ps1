@@ -7,16 +7,31 @@ Function Get-TeamStandings {
     )
 
     begin { 
-        $standingsDownload = $null
+        $standingsDownload = @()
     }
     
     process {
         # scrape data
+        $webResponse = Invoke-WebRequest -Uri $uri -UseBasicParsing
+        $htmlDom = $webResponse.Content | ConvertFrom-Html
+        # $webResponse = Invoke-WebRequest -Method GET -Uri $uri
+        # $targetTable = ($webresponse.ParsedHtml.getElementsByTagName('table') | Measure-Object).Count - 1
+        $table = $htmlDom.SelectNodes('//table')[0]
+        $headers = $table.SelectNodes('.//tr[1]/th') | ForEach-Object { $_.InnerText.Trim() }
+        $rows = $table.SelectNodes('.//tr[position()>1]')
+        foreach ($row in $rows) {
+            $cells = $row.SelectNodes('.//td')
+            $rowData = @{}
 
-        $webResponse = Invoke-WebRequest -Method GET -Uri $uri
-        $targetTable = ($webresponse.ParsedHtml.getElementsByTagName('table') | Measure-Object).Count - 1
-        $standingsDownload = ConvertFrom-HtmlTable -WebRequest $webResponse -TableNumber ($targetTable - 1)
-        $standingsDownload += ConvertFrom-HtmlTable -WebRequest $webResponse -TableNumber $targetTable
+            for ($i = 0; $i -lt $headers.Count; $i++) {
+                $rowData[$headers[$i]] = $cells[$i].InnerText.Trim()
+            }
+
+            $standingsDownload += New-Object PSObject -Property $rowData
+        }
+
+        #$standingsDownload = ConvertFrom-HtmlTable -WebRequest $webResponse -TableNumber ($targetTable - 1)
+        #$standingsDownload += ConvertFrom-HtmlTable -WebRequest $webResponse -TableNumber $targetTable
         
         $standingsDownload = $standingsDownload | ForEach-Object { $_ | Select-Object *,
             @{Name = 'tm'; expression = {
