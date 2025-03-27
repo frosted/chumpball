@@ -2,7 +2,7 @@
 .SYNOPSIS
     Scrapes stats for Chumpball fantasy basketball league and outputs report to HTML
 .DESCRIPTION
-    Scraping data from https://basketball.realgm.com/nba/stats/2025/Totals/All/points/All/desc/#/Regular_Season. The
+    Scraping data from https://basketball.realgm.com/nba/stats/2024/Totals/All/points/All/desc/#/Regular_Season. The
     stats extend over several pages, so we have to loop through (replacing # with pages 1...?).  Each day there are
     tables added/removed depending on the games scheduled that day.  So far, the last table on the page is the stats 
     table.  Once the stats are retrieved, we apply a very custom rule set to divide players between teams A and B, 
@@ -42,8 +42,8 @@ $requiredModules | ForEach-Object {
 
 
 
-# $rosterStats = Update-RosterStats -CSVFilePath "$rootFolder\config\rosters.csv" -Uri 'https://basketball.realgm.com/nba/stats/2025/Totals/All/points/All/desc/<#>/Regular_Season'
-$rosterStats = Update-RosterStats -CSVFilePath "$rootFolder\config\rosters.csv" -Uri 'https://basketball.realgm.com/nba/stats/2025/Totals/All/points/All/desc/Regular_Season'
+# $rosterStats = Update-RosterStats -CSVFilePath "$rootFolder\config\rosters.csv" -Uri 'https://basketball.realgm.com/nba/stats/2024/Totals/All/points/All/desc/<#>/Regular_Season'
+$rosterStats = Update-RosterStats -CSVFilePath "$rootFolder\config\rosters.csv" -Uri 'https://basketball.realgm.com/nba/stats/2024/Totals/All/points/All/desc/Regular_Season'
 
 $teamStandings = Get-TeamStandings -Uri 'https://basketball.realgm.com/nba/standings'
 

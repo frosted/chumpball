@@ -73,7 +73,7 @@ function Get-PlayerData {
             'PlayerData' {
                 $uri = 'https://basketball.realgm.com/nba/players'
                 $parsedHTMLresponse = ConvertFrom-Html -Url $uri -Engine AngleSharp
-                $convertedHTMLresponse = ConvertFrom-HtmlTable -Content ($parsedHTMLresponse.GetElementsByClassName("tablesaw").outerhtml) -ErrorAction SilentlyContinue
+                $convertedHTMLresponse = ConvertFrom-HtmlTable -Content ($parsedHTMLresponse.GetElementsByClassName("table").outerhtml) -ErrorAction SilentlyContinue
                 if ($null -ne $convertedHTMLresponse) {
                     $convertedHTMLresponse | ForEach-Object {
                         $thisPlayer = New-Object PlayerCard
@@ -95,120 +95,118 @@ function Get-PlayerData {
             }
 
             'SeasonData' {
-                $uri = 'https://basketball.realgm.com/nba/stats/<year>/Totals/All/points/All/desc/<#>/Regular_Season'
+                $uri = 'https://basketball.realgm.com/nba/stats/<year>/Totals/All/points/All/desc/Regular_Season'
                 $uri = $uri.Replace("<year>", $Year)
                 $looping = $true; $i = 1
 
-                While ($looping) {
-                    Write-Progress -Activity "Downloading player data..." -Status "Scraping page $i...))" -PercentComplete $(Get-Random -Minimum 1 -Maximum 100) -CurrentOperation "Scraping Data"
-                    $parsedHTMLresponse = ConvertFrom-Html -Url $($uri.Replace("<#>", $i)) -Engine AngleSharp
-                    try {
-                        $convertedHTMLresponse = ConvertFrom-HtmlTable -Content ($parsedHTMLresponse.GetElementsByClassName("tablesaw compact").outerhtml) -ErrorAction SilentlyContinue
-                    }
-                    catch {
-                        Write-Verbose "Reached the end of valid HTML responses."
-                    }
-                    finally {
-                        Remove-Variable parsedHTMLresponse -ErrorAction SilentlyContinue
-                    }
-                    
-                    if ($null -ne $convertedHTMLresponse) {
-                        $convertedHTMLresponse | ForEach-Object {
-                            $thisPlayer = New-Object PlayerStats
-                            $thisPlayer.'Number' = $_.'#'
-                            $thisPlayer.'Player' = $_.'Player' 
-                            ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char, '').Trim() }
-                            $thisPlayer.'Team' = $_.'Team' 
-                            $thisPlayer.'GP' = $_.'GP' 
-                            $thisPlayer.'MIN' = $_.'MIN' 
-                            $thisPlayer.'PTS' = $_.'PTS' 
-                            $thisPlayer.'FGM' = $_.'FGM' 
-                            $thisPlayer.'FGA' = $_.'FGA' 
-                            $thisPlayer.'FG' = $_.'FG%' 
-                            $thisPlayer.'3PM' = $_.'3PM' 
-                            $thisPlayer.'3PA' = $_.'3PA' 
-                            $thisPlayer.'3P' = $_.'3P%'
-                            $thisPlayer.'FTM' = $_.'FTM' 
-                            $thisPlayer.'FTA' = $_.'FTA' 
-                            $thisPlayer.'FT' = $_.'FT%' 
-                            $thisPlayer.'ORB' = $_.'ORB' 
-                            $thisPlayer.'DRB' = $_.'DRB' 
-                            $thisPlayer.'REB' = $_.'REB' 
-                            $thisPlayer.'AST' = $_.'AST' 
-                            $thisPlayer.'STL' = $_.'STL' 
-                            $thisPlayer.'BLK' = $_.'BLK' 
-                            $thisPlayer.'TOV' = $_.'TOV' 
-                            $thisPlayer.'PF' = $_.'PF'
-                            $thisPlayer.'Score' = [int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)
-                            $thisPlayer.'AVG' = ([int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)) / $_.'GP'
-                            $PlayerList.Add($thisPlayer)  
-                        }
-                        Remove-Variable convertedHTMLresponse
-                        $i++
-                    }
-                    else {
-                        $looping = $false
-                    }
+                # While ($looping) {
+                # Write-Progress -Activity "Downloading player data..." -Status "Scraping page $i...))" -PercentComplete $(Get-Random -Minimum 1 -Maximum 100) -CurrentOperation "Scraping Data"
+                $parsedHTMLresponse = ConvertFrom-Html -Url $uri -Engine AngleSharp
+                try {
+                    $convertedHTMLresponse = ConvertFrom-HtmlTable -Content ($parsedHTMLresponse.GetElementsByClassName("table").outerhtml) -ErrorAction SilentlyContinue
                 }
-                
+                catch {
+                    Write-Verbose "Reached the end of valid HTML responses."
+                }
+                finally {
+                    Remove-Variable parsedHTMLresponse -ErrorAction SilentlyContinue
+                }
+                    
+                if ($null -ne $convertedHTMLresponse) {
+                    $convertedHTMLresponse | ForEach-Object {
+                        $thisPlayer = New-Object PlayerStats
+                        $thisPlayer.'Number' = $_.'#'
+                        $thisPlayer.'Player' = $_.'Player' 
+                        ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char, '').Trim() }
+                        $thisPlayer.'Team' = $_.'Team' 
+                        $thisPlayer.'GP' = $_.'GP' 
+                        $thisPlayer.'MIN' = $_.'MIN' 
+                        $thisPlayer.'PTS' = $_.'PTS' 
+                        $thisPlayer.'FGM' = $_.'FGM' 
+                        $thisPlayer.'FGA' = $_.'FGA' 
+                        $thisPlayer.'FG' = $_.'FG%' 
+                        $thisPlayer.'3PM' = $_.'3PM' 
+                        $thisPlayer.'3PA' = $_.'3PA' 
+                        $thisPlayer.'3P' = $_.'3P%'
+                        $thisPlayer.'FTM' = $_.'FTM' 
+                        $thisPlayer.'FTA' = $_.'FTA' 
+                        $thisPlayer.'FT' = $_.'FT%' 
+                        $thisPlayer.'ORB' = $_.'ORB' 
+                        $thisPlayer.'DRB' = $_.'DRB' 
+                        $thisPlayer.'REB' = $_.'REB' 
+                        $thisPlayer.'AST' = $_.'AST' 
+                        $thisPlayer.'STL' = $_.'STL' 
+                        $thisPlayer.'BLK' = $_.'BLK' 
+                        $thisPlayer.'TOV' = $_.'TOV' 
+                        $thisPlayer.'PF' = $_.'PF'
+                        $thisPlayer.'Score' = [int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)
+                        $thisPlayer.'AVG' = ([int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)) / $_.'GP'
+                        $PlayerList.Add($thisPlayer)  
+                    }
+                    Remove-Variable convertedHTMLresponse
+                    $i++
+                }
+                else {
+                    $looping = $false
+                }
             }
 
             'PreseasonData' {
-                $uri = 'https://basketball.realgm.com/nba/stats/<year>/Totals/All/points/All/desc/<#>/Preseason'
+                $uri = 'https://basketball.realgm.com/nba/stats/<year>/Totals/All/points/All/desc/Preseason'
                 $uri = $uri.Replace("<year>", $Year)
                 $looping = $true; $i = 1
                 
-                while ($looping) {
-                    Write-Progress -Activity "Downloading player data..." -Status "Scraping page $i...))" -PercentComplete $(Get-Random -Minimum 1 -Maximum 100) -CurrentOperation "Scraping Data"
-                    $parsedHTMLresponse = ConvertFrom-Html -Url $($uri.Replace("<#>", $i)) -Engine AngleSharp
-                    try {
-                        $convertedHTMLresponse = ConvertFrom-HtmlTable -Content ($parsedHTMLresponse.GetElementsByClassName("tablesaw compact").outerhtml) -ErrorAction SilentlyContinue
-                    }
-                    catch {
-                        Write-Verbose "Reached the end of valid HTML responses."
-                    }
-                    finally {
-                        Remove-Variable parsedHTMLresponse -ErrorAction SilentlyContinue
-                    }
-                    
-                    if ($null -ne $convertedHTMLresponse) {
-                        $convertedHTMLresponse | ForEach-Object {
-                            $thisPlayer = New-Object PlayerStats
-                            $thisPlayer.'Number' = $_.'#'
-                            $thisPlayer.'Player' = $_.'Player' 
-                            ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char, '').Trim() }
-                            $thisPlayer.'Team' = $_.'Team' 
-                            $thisPlayer.'GP' = $_.'GP' 
-                            $thisPlayer.'MIN' = $_.'MIN' 
-                            $thisPlayer.'PTS' = $_.'PTS' 
-                            $thisPlayer.'FGM' = $_.'FGM' 
-                            $thisPlayer.'FGA' = $_.'FGA' 
-                            $thisPlayer.'FG' = $_.'FG%' 
-                            $thisPlayer.'3PM' = $_.'3PM' 
-                            $thisPlayer.'3PA' = $_.'3PA' 
-                            $thisPlayer.'3P' = $_.'3P%'
-                            $thisPlayer.'FTM' = $_.'FTM' 
-                            $thisPlayer.'FTA' = $_.'FTA' 
-                            $thisPlayer.'FT' = $_.'FT%' 
-                            $thisPlayer.'ORB' = $_.'ORB' 
-                            $thisPlayer.'DRB' = $_.'DRB' 
-                            $thisPlayer.'REB' = $_.'REB' 
-                            $thisPlayer.'AST' = $_.'AST' 
-                            $thisPlayer.'STL' = $_.'STL' 
-                            $thisPlayer.'BLK' = $_.'BLK' 
-                            $thisPlayer.'TOV' = $_.'TOV' 
-                            $thisPlayer.'PF' = $_.'PF'
-                            $thisPlayer.'Score' = [int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)
-                            $thisPlayer.'AVG' = ([int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)) / [int]$_.'GP'
-                            $PlayerList.Add($thisPlayer) 
-                        }
-                        Remove-Variable convertedHTMLresponse
-                        $i++
-                    }
-                    else {
-                        $looping = $false
-                    }
+                #while ($looping) {
+                # Write-Progress -Activity "Downloading player data..." -Status "Scraping page $i...))" -PercentComplete $(Get-Random -Minimum 1 -Maximum 100) -CurrentOperation "Scraping Data"
+                $parsedHTMLresponse = ConvertFrom-Html -Url $uri -Engine AngleSharp
+                try {
+                    $convertedHTMLresponse = ConvertFrom-HtmlTable -Content ($parsedHTMLresponse.GetElementsByClassName("table").outerhtml) -ErrorAction SilentlyContinue
                 }
+                catch {
+                    Write-Verbose "Reached the end of valid HTML responses."
+                }
+                finally {
+                    Remove-Variable parsedHTMLresponse -ErrorAction SilentlyContinue
+                }
+                    
+                if ($null -ne $convertedHTMLresponse) {
+                    $convertedHTMLresponse | ForEach-Object {
+                        $thisPlayer = New-Object PlayerStats
+                        $thisPlayer.'Number' = $_.'#'
+                        $thisPlayer.'Player' = $_.'Player' 
+                        ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char, '').Trim() }
+                        $thisPlayer.'Team' = $_.'Team' 
+                        $thisPlayer.'GP' = $_.'GP' 
+                        $thisPlayer.'MIN' = $_.'MIN' 
+                        $thisPlayer.'PTS' = $_.'PTS' 
+                        $thisPlayer.'FGM' = $_.'FGM' 
+                        $thisPlayer.'FGA' = $_.'FGA' 
+                        $thisPlayer.'FG' = $_.'FG%' 
+                        $thisPlayer.'3PM' = $_.'3PM' 
+                        $thisPlayer.'3PA' = $_.'3PA' 
+                        $thisPlayer.'3P' = $_.'3P%'
+                        $thisPlayer.'FTM' = $_.'FTM' 
+                        $thisPlayer.'FTA' = $_.'FTA' 
+                        $thisPlayer.'FT' = $_.'FT%' 
+                        $thisPlayer.'ORB' = $_.'ORB' 
+                        $thisPlayer.'DRB' = $_.'DRB' 
+                        $thisPlayer.'REB' = $_.'REB' 
+                        $thisPlayer.'AST' = $_.'AST' 
+                        $thisPlayer.'STL' = $_.'STL' 
+                        $thisPlayer.'BLK' = $_.'BLK' 
+                        $thisPlayer.'TOV' = $_.'TOV' 
+                        $thisPlayer.'PF' = $_.'PF'
+                        $thisPlayer.'Score' = [int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)
+                        $thisPlayer.'AVG' = ([int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)) / [int]$_.'GP'
+                        $PlayerList.Add($thisPlayer) 
+                    }
+                    Remove-Variable convertedHTMLresponse
+                    $i++
+                }
+                else {
+                    $looping = $false
+                }
+                #}#
                 
             }
         }
