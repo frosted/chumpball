@@ -10,6 +10,15 @@ jobs:
       runs-on: windows-latest
       steps:
         - uses: actions/checkout@v1
+        - name: Install Join-Object module
+          shell: pwsh
+          run: Install-Module -Name Join-Object -Force
+        - name: Install PSParseHTML module
+          shell: pwsh
+          run: Install-Module -Name PSParseHTML -Force
+        - name: Install PSWriteHTML module
+          shell: pwsh
+          run: Install-Module -Name PSWriteHTML -Force
         - name: Install PowerHTML module
           shell: pwsh
           run: Install-Module -Name PowerHTML -Force
