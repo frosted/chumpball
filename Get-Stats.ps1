@@ -7,14 +7,18 @@ $scriptRoot = $PSScriptRoot
 
 #region: modules & functions
 
-$requiredModules = @('Join-Object','PSWriteHTML')
-ForEach ($module in $requiredModules) {
-    Try {
-        Find-Module $module -ErrorAction Stop | Install-Module -Scope CurrentUser 
-    } Catch {
-        Write-Output "Unable to install required module $module.  Please remediate, and try again."
-    }
-}
+#$requiredModules = @('Join-Object','PSWriteHTML')
+#ForEach ($module in $requiredModules) {
+#    Try {
+#        Find-Module $module -ErrorAction Stop | Install-Module -Scope CurrentUser 
+#    } Catch {
+#        Write-Output "Unable to install required module $module.  Please remediate, and try again."
+#    }
+#}
+
+Import-Module -FullyQualifiedName "$scriptRoot\modules\Join-Object\2.0.3\Join-Object.psd1"
+Import-Module -FullyQualifiedName "$scriptRoot\modules\PSWriteHTML\1.39.0\PSWriteHTML.psd1"
+Import-Module -FullyQualifiedName "$scriptRoot\modules\PSWriteHTML\1.9.0\PSWriteHTML.psd1"
 
 . $scriptRoot\Get-PlayerData.ps1
 
