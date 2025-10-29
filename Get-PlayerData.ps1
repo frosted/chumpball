@@ -55,14 +55,6 @@ function Get-PlayerData {
             [string]$Rank
         }
 
-        ### Configure modules
-
-        @('PSParseHTML') | ForEach-Object {
-            If (-not (Get-Module $_)) {
-                Find-Module $_ | Install-Module -AllowClobber -Force
-                Import-Module $_ -Force   
-            }
-        }
     }
     
     process {
