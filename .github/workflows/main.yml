@@ -12,8 +12,7 @@ jobs:
         - uses: actions/checkout@v1
         - name: Script
           run: |
-            . .\Get-PlayerData.ps1
-            Get-PlayerData -StoredQuery SeasonData -Year 2025 | export-Csv -NoTypeInformation -Path "2025.csv" -Force
+            .\Get-Stats.ps1
             $commitMsg = "[$(get-date -Format 'yyyy.MM.dd:hh.mm.ss')]Updated stats for 2025"
             git config user.name github-actions[bot]
             git config user.email github-actions[bot]@users.noreply.github.com
