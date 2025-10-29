@@ -20,7 +20,8 @@ $scriptRoot = $PSScriptRoot
 Import-Module -FullyQualifiedName "$scriptRoot\modules\Join-Object\2.0.3\Join-Object.psd1"
 Import-Module -FullyQualifiedName "$scriptRoot\modules\PSWriteHTML\1.39.0\PSWriteHTML.psd1"
 Import-Module -FullyQualifiedName "$scriptRoot\modules\PSWriteHTML\1.9.0\PSWriteHTML.psd1"
-
+Import-Module -FullyQualifiedName "$scriptRoot\modules\Microsoft.PowerShell.Management\Microsoft.PowerShell.Management.psd1"
+Import-Module -FullyQualifiedName "$scriptRoot\modules\Microsoft.PowerShell.Utility\Microsoft.PowerShell.Utility.psd1"
 . $scriptRoot\Get-PlayerData.ps1
 
 #endregion
