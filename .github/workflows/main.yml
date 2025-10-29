@@ -10,9 +10,11 @@ jobs:
       runs-on: windows-latest
       steps:
         - uses: actions/checkout@v1
+        - name: Install PowerHTML module
+          shell: pwsh
+          run: Install-Module -Name PowerHTML -Force
         - name: Script
-          run: |
-            .\Get-Stats.ps1
+          run: .\Get-Stats.ps1
             $commitMsg = "[$(get-date -Format 'yyyy.MM.dd:hh.mm.ss')]Updated stats for 2025"
             git config user.name github-actions[bot]
             git config user.email github-actions[bot]@users.noreply.github.com
