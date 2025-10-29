@@ -13,29 +13,30 @@ function Get-PlayerData {
             [int]$Number
             [string]$Player
             [string]$Team
-            [int]$GP
-            [double]$MIN
-            [int]$PTS
-            [int]$FGM
-            [int]$FGA
-            [double]$FG
-            [int]$3PM
-            [int]$3PA
-            [double]$3P
-            [int]$FTM
-            [int]$FTA
-            [double]$FT
-            [int]$ORB
-            [int]$DRB
-            [int]$REB
-            [int]$AST
-            [int]$STL
-            [int]$BLK
-            [int]$TOV
-            [int]$PF
-            [int]$Score
-            [int]$AVG
+            [int]$GP = 0
+            [double]$MIN = 0
+            [int]$PTS = 0
+            [int]$FGM = 0
+            [int]$FGA = 0
+            [double]$FG = 0
+            [int]$3PM = 0
+            [int]$3PA = 0
+            [double]$3P = 0
+            [int]$FTM = 0
+            [int]$FTA = 0
+            [double]$FT = 0
+            [int]$ORB = 0
+            [int]$DRB = 0
+            [int]$REB = 0
+            [int]$AST = 0
+            [int]$STL = 0
+            [int]$BLK = 0
+            [int]$TOV = 0
+            [int]$PF = 0
+            [int]$Score = 0
+            [int]$AVG = 0
             [string]$SearchKey
+            [string]$Rank
         }
 
         Class PlayerCard {
@@ -51,6 +52,7 @@ function Get-PlayerData {
             [string]$DraftStatus
             [string]$Nationality
             [string]$SearchKey
+            [string]$Rank
         }
 
         ### Configure modules
@@ -79,15 +81,15 @@ function Get-PlayerData {
                         $thisPlayer = New-Object PlayerCard
                         $thisPlayer.'Number' = $_.'#'
                         $thisPlayer.'Player' = $_.'Player'
-                        ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char, '').Trim() }
+                        ForEach ($char in $InvalidChars) { $thisPlayer.'Searchkey' = ($thisPlayer.'Player').Replace($char, '').Trim() }
                         $thisPlayer.'Pos' = $_.'Pos'
                         $thisPlayer.'HT' = $_.'HT'
                         $thisPlayer.'WT' = $_.'WT'
                         $thisPlayer.'Age' = $_.'Age'
-                        $thisPlayer.'Team' = $_.'CurrentTeam'
+                        $thisPlayer.'Team' = $_.'Current Team'
                         $thisPlayer.'YOS' = $_.'YOS'
-                        $thisPlayer.'PreDraftTeam' = $_.'PreDraftTeam'
-                        $thisPlayer.'DraftStatus' = $_.'DraftStatus'
+                        $thisPlayer.'PreDraftTeam' = $_.'Pre-Draft Team'
+                        $thisPlayer.'DraftStatus' = $_.'Draft Status'
                         $thisPlayer.'Nationality' = $_.'Nationality'
                         $PlayerList.Add($thisPlayer) 
                     }
@@ -117,30 +119,30 @@ function Get-PlayerData {
                         $thisPlayer = New-Object PlayerStats
                         $thisPlayer.'Number' = $_.'#'
                         $thisPlayer.'Player' = $_.'Player' 
-                        ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char, '').Trim() }
-                        $thisPlayer.'Team' = $_.'Team' 
-                        $thisPlayer.'GP' = $_.'GP' 
-                        $thisPlayer.'MIN' = $_.'MIN' 
-                        $thisPlayer.'PTS' = $_.'PTS' 
-                        $thisPlayer.'FGM' = $_.'FGM' 
-                        $thisPlayer.'FGA' = $_.'FGA' 
-                        $thisPlayer.'FG' = $_.'FG%' 
-                        $thisPlayer.'3PM' = $_.'3PM' 
-                        $thisPlayer.'3PA' = $_.'3PA' 
-                        $thisPlayer.'3P' = $_.'3P%'
-                        $thisPlayer.'FTM' = $_.'FTM' 
-                        $thisPlayer.'FTA' = $_.'FTA' 
-                        $thisPlayer.'FT' = $_.'FT%' 
-                        $thisPlayer.'ORB' = $_.'ORB' 
-                        $thisPlayer.'DRB' = $_.'DRB' 
-                        $thisPlayer.'REB' = $_.'REB' 
-                        $thisPlayer.'AST' = $_.'AST' 
-                        $thisPlayer.'STL' = $_.'STL' 
-                        $thisPlayer.'BLK' = $_.'BLK' 
-                        $thisPlayer.'TOV' = $_.'TOV' 
-                        $thisPlayer.'PF' = $_.'PF'
+                        ForEach ($char in $InvalidChars) { $thisPlayer.'Searchkey' = ($thisPlayer.'Player').Replace($char, '').Trim() }
+                        $thisPlayer.'Team'  = $_.'Team' 
+                        $thisPlayer.'GP'    = [int]$_.'GP' 
+                        $thisPlayer.'MIN'   = [int]$_.'MIN' 
+                        $thisPlayer.'PTS'   = [int]$_.'PTS' 
+                        $thisPlayer.'FGM'   = [int]$_.'FGM' 
+                        $thisPlayer.'FGA'   = [int]$_.'FGA' 
+                        $thisPlayer.'FG'    = [int]$_.'FG%' 
+                        $thisPlayer.'3PM'   = [int]$_.'3PM' 
+                        $thisPlayer.'3PA'   = [int]$_.'3PA' 
+                        $thisPlayer.'3P'    = [int]$_.'3P%'
+                        $thisPlayer.'FTM'   = [int]$_.'FTM' 
+                        $thisPlayer.'FTA'   = [int]$_.'FTA' 
+                        $thisPlayer.'FT'    = [int]$_.'FT%' 
+                        $thisPlayer.'ORB'   = [int]$_.'ORB' 
+                        $thisPlayer.'DRB'   = [int]$_.'DRB' 
+                        $thisPlayer.'REB'   = [int]$_.'REB' 
+                        $thisPlayer.'AST'   = [int]$_.'AST' 
+                        $thisPlayer.'STL'   = [int]$_.'STL' 
+                        $thisPlayer.'BLK'   = [int]$_.'BLK' 
+                        $thisPlayer.'TOV'   = [int]$_.'TOV' 
+                        $thisPlayer.'PF'    = [int]$_.'PF'
                         $thisPlayer.'Score' = [int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)
-                        $thisPlayer.'AVG' = ([int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)) / $_.'GP'
+                        $thisPlayer.'AVG'   = ([int]$_.'PTS' + [int]$_.'REB' + [int]$_.'AST' - ([int]$_.'TOV' * 2)) / $_.'GP'
                         $PlayerList.Add($thisPlayer)  
                     }
                     Remove-Variable convertedHTMLresponse
@@ -149,6 +151,12 @@ function Get-PlayerData {
                 else {
                     $looping = $false
                 }
+
+                $playerList = $playerList | Sort-Object -Property Score -Descending
+                (1..$playerList.count) | ForEach-Object {
+                    $playerList[$_-1].Rank = [int]$_
+                }
+
             }
 
             'PreseasonData' {
@@ -174,7 +182,7 @@ function Get-PlayerData {
                         $thisPlayer = New-Object PlayerStats
                         $thisPlayer.'Number' = $_.'#'
                         $thisPlayer.'Player' = $_.'Player' 
-                        ForEach ($char in $InvalidChars) { $thisPlayer.'Player' = ($thisPlayer.'Player').Replace($char, '').Trim() }
+                        ForEach ($char in $InvalidChars) { $thisPlayer.'Searchkey' = ($thisPlayer.'Player').Replace($char, '').Trim() }
                         $thisPlayer.'Team' = $_.'Team' 
                         $thisPlayer.'GP' = $_.'GP' 
                         $thisPlayer.'MIN' = $_.'MIN' 

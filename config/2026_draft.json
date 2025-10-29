@@ -1,0 +1,626 @@
+[
+  {
+    "Rd#": "1",
+    "Pick": "1",
+    "Owner": "Jay",
+    "Player": "Nikola Jokic",
+    "Team": "Denver",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "1",
+    "Pick": "2",
+    "Owner": "Chris",
+    "Player": "Giannis Antetokounmpo",
+    "Team": "Milwaukee",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "1",
+    "Pick": "3",
+    "Owner": "Jayden",
+    "Player": "Shai Gilgeous-Alexander",
+    "Team": "Oklahoma City",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "1",
+    "Pick": "4",
+    "Owner": "Rhon",
+    "Player": "Victor Wembanyama",
+    "Team": "San Antonio",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "1",
+    "Pick": "5",
+    "Owner": "Jun",
+    "Player": "Karl-Anthony Towns",
+    "Team": "New York",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "1",
+    "Pick": "6",
+    "Owner": "Ed",
+    "Player": "Anthony Edwards",
+    "Team": "Minnesota",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "2",
+    "Pick": "7",
+    "Owner": "Ed",
+    "Player": "DeMar DeRozan",
+    "Team": "Sacramento",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "2",
+    "Pick": "8",
+    "Owner": "Jun",
+    "Player": "Pascal Siakam",
+    "Team": "Indiana",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "2",
+    "Pick": "9",
+    "Owner": "Rhon",
+    "Player": "Luka Doncic",
+    "Team": "Los Angeles",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "2",
+    "Pick": "10",
+    "Owner": "Jayden",
+    "Player": "Domantas Sabonis",
+    "Team": "Sacramento",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "2",
+    "Pick": "11",
+    "Owner": "Chris",
+    "Player": "Cade Cunningham",
+    "Team": "Detroit",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "2",
+    "Pick": "12",
+    "Owner": "Jay",
+    "Player": "Joel Embiid",
+    "Team": "Philadelphia",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "3",
+    "Pick": "13",
+    "Owner": "Jay",
+    "Player": "Anthony Davis",
+    "Team": "Dallas",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "3",
+    "Pick": "14",
+    "Owner": "Chris",
+    "Player": "Jaylen Brown",
+    "Team": "Boston",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "3",
+    "Pick": "15",
+    "Owner": "Jayden",
+    "Player": "Kevin Durant",
+    "Team": "Houston",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "3",
+    "Pick": "16",
+    "Owner": "Rhon",
+    "Player": "Alperen Sengun",
+    "Team": "Houston",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "3",
+    "Pick": "17",
+    "Owner": "Jun",
+    "Player": "Paolo Banchero",
+    "Team": "Orlando",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "3",
+    "Pick": "18",
+    "Owner": "Ed",
+    "Player": "Devin Booker",
+    "Team": "Phoenix",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "4",
+    "Pick": "19",
+    "Owner": "Ed",
+    "Player": "Bam Adebayo",
+    "Team": "Miami",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "4",
+    "Pick": "20",
+    "Owner": "Jun",
+    "Player": "Jalen Brunson",
+    "Team": "New York",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "4",
+    "Pick": "21",
+    "Owner": "Rhon",
+    "Player": "Zion Williamson",
+    "Team": "New Orleans",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "4",
+    "Pick": "22",
+    "Owner": "Jayden",
+    "Player": "Franz Wagner",
+    "Team": "Orlando",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "4",
+    "Pick": "23",
+    "Owner": "Chris",
+    "Player": "Ivica Zubac",
+    "Team": "Inglewood",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "4",
+    "Pick": "24",
+    "Owner": "Jay",
+    "Player": "Trae Young",
+    "Team": "Atlanta",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "5",
+    "Pick": "25",
+    "Owner": "Jay",
+    "Player": "Donovan Mitchell",
+    "Team": "Cleveland",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "5",
+    "Pick": "26",
+    "Owner": "Chris",
+    "Player": "Nikola Vucevic",
+    "Team": "Chicago",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "5",
+    "Pick": "27",
+    "Owner": "Jayden",
+    "Player": "Tyrese Maxey",
+    "Team": "Philadelphia",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "5",
+    "Pick": "28",
+    "Owner": "Rhon",
+    "Player": "LeBron James",
+    "Team": "Los Angeles",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "5",
+    "Pick": "29",
+    "Owner": "Jun",
+    "Player": "De'Aaron Fox",
+    "Team": "San Antonio",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "5",
+    "Pick": "30",
+    "Owner": "Ed",
+    "Player": "Jaren Jackson, Jr.",
+    "Team": "Memphis",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "6",
+    "Pick": "31",
+    "Owner": "Ed",
+    "Player": "James Harden",
+    "Team": "Inglewood",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "6",
+    "Pick": "32",
+    "Owner": "Jun",
+    "Player": "LaMelo Ball",
+    "Team": "Charlotte",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "6",
+    "Pick": "33",
+    "Owner": "Rhon",
+    "Player": "Jalen Johnson",
+    "Team": "Atlanta",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "6",
+    "Pick": "34",
+    "Owner": "Jayden",
+    "Player": "Jarrett Allen",
+    "Team": "Cleveland",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "6",
+    "Pick": "35",
+    "Owner": "Chris",
+    "Player": "Stephen Curry",
+    "Team": "Golden State",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "6",
+    "Pick": "36",
+    "Owner": "Jay",
+    "Player": "Myles Turner",
+    "Team": "Milwaukee",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "7",
+    "Pick": "37",
+    "Owner": "Jay",
+    "Player": "Jalen Williams",
+    "Team": "Oklahoma City",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "7",
+    "Pick": "38",
+    "Owner": "Chris",
+    "Player": "Miles Bridges",
+    "Team": "Charlotte",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "7",
+    "Pick": "39",
+    "Owner": "Jayden",
+    "Player": "Scottie Barnes",
+    "Team": "Toronto",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "7",
+    "Pick": "40",
+    "Owner": "Rhon",
+    "Player": "Jamal Murray",
+    "Team": "Denver",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "7",
+    "Pick": "41",
+    "Owner": "Jun",
+    "Player": "Evan Mobley",
+    "Team": "Cleveland",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "7",
+    "Pick": "42",
+    "Owner": "Ed",
+    "Player": "Zach LaVine",
+    "Team": "Sacramento",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "8",
+    "Pick": "43",
+    "Owner": "Ed",
+    "Player": "Brandon Ingram",
+    "Team": "Toronto",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "8",
+    "Pick": "44",
+    "Owner": "Jun",
+    "Player": "Julius Randle",
+    "Team": "Minnesota",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "8",
+    "Pick": "45",
+    "Owner": "Rhon",
+    "Player": "Lauri Markkanen",
+    "Team": "Utah",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "8",
+    "Pick": "46",
+    "Owner": "Jayden",
+    "Player": "Tyler Herro",
+    "Team": "Miami",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "8",
+    "Pick": "47",
+    "Owner": "Chris",
+    "Player": "Ja Morant",
+    "Team": "Memphis",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "8",
+    "Pick": "48",
+    "Owner": "Jay",
+    "Player": "Zaccharie Risacher",
+    "Team": "Atlanta",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "9",
+    "Pick": "49",
+    "Owner": "Jay",
+    "Player": "Cooper Flagg",
+    "Team": "Dallas",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "9",
+    "Pick": "50",
+    "Owner": "Chris",
+    "Player": "Chet Holmgren",
+    "Team": "Oklahoma City",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "9",
+    "Pick": "51",
+    "Owner": "Jayden",
+    "Player": "Michael Porter, Jr.",
+    "Team": "Brooklyn",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "9",
+    "Pick": "52",
+    "Owner": "Rhon",
+    "Player": "Austin Reaves",
+    "Team": "Los Angeles",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "9",
+    "Pick": "53",
+    "Owner": "Jun",
+    "Player": "Norman Powell",
+    "Team": "Miami",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "9",
+    "Pick": "54",
+    "Owner": "Ed",
+    "Player": "Deni Avdija",
+    "Team": "Portland",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "10",
+    "Pick": "55",
+    "Owner": "Ed",
+    "Player": "Onyeka Okongwu",
+    "Team": "Atlanta",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "10",
+    "Pick": "56",
+    "Owner": "Jun",
+    "Player": "Kristaps Porzingis",
+    "Team": "Atlanta",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "10",
+    "Pick": "57",
+    "Owner": "Rhon",
+    "Player": "Josh Giddey",
+    "Team": "Chicago",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "10",
+    "Pick": "58",
+    "Owner": "Jayden",
+    "Player": "Derrick White",
+    "Team": "Boston",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "10",
+    "Pick": "59",
+    "Owner": "Chris",
+    "Player": "Jalen Green",
+    "Team": "Phoenix",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "10",
+    "Pick": "60",
+    "Owner": "Jay",
+    "Player": "Cam Thomas",
+    "Team": "Brooklyn",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "11",
+    "Pick": "61",
+    "Owner": "Jay",
+    "Player": "Kawhi Leonard",
+    "Team": "Inglewood",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "11",
+    "Pick": "62",
+    "Owner": "Chris",
+    "Player": "Amen Thompson",
+    "Team": "Houston",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "11",
+    "Pick": "63",
+    "Owner": "Jayden",
+    "Player": "Jimmy Butler III",
+    "Team": "Golden State",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "11",
+    "Pick": "64",
+    "Owner": "Rhon",
+    "Player": "C.J. McCollum",
+    "Team": "Washington",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "11",
+    "Pick": "65",
+    "Owner": "Jun",
+    "Player": "Jalen Duren",
+    "Team": "Detroit",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "11",
+    "Pick": "66",
+    "Owner": "Ed",
+    "Player": "Mikal Bridges",
+    "Team": "New York",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "12",
+    "Pick": "67",
+    "Owner": "Ed",
+    "Player": "Desmond Bane",
+    "Team": "Orlando",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "12",
+    "Pick": "68",
+    "Owner": "Jun",
+    "Player": "Coby White",
+    "Team": "Chicago",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "12",
+    "Pick": "69",
+    "Owner": "Rhon",
+    "Player": "Trey Murphy III",
+    "Team": "New Orleans",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "12",
+    "Pick": "70",
+    "Owner": "Jayden",
+    "Player": "Rudy Gobert",
+    "Team": "Minnesota",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "12",
+    "Pick": "71",
+    "Owner": "Chris",
+    "Player": "Josh Hart",
+    "Team": "New York",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "12",
+    "Pick": "72",
+    "Owner": "Jay",
+    "Player": "Bennedict Mathurin",
+    "Team": "Indiana",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "13",
+    "Pick": "73",
+    "Owner": "Jay",
+    "Player": "Tobias Harris",
+    "Team": "Detroit",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "13",
+    "Pick": "74",
+    "Owner": "Chris",
+    "Player": "OG Anunoby",
+    "Team": "New York",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "13",
+    "Pick": "75",
+    "Owner": "Jayden",
+    "Player": "Payton Pritchard",
+    "Team": "Boston",
+    "Pos": "G"
+  },
+  {
+    "Rd#": "13",
+    "Pick": "76",
+    "Owner": "Rhon",
+    "Player": "Mark Williams",
+    "Team": "Phoenix",
+    "Pos": "C"
+  },
+  {
+    "Rd#": "13",
+    "Pick": "77",
+    "Owner": "Jun",
+    "Player": "Ace Bailey",
+    "Team": "Utah",
+    "Pos": "F"
+  },
+  {
+    "Rd#": "13",
+    "Pick": "78",
+    "Owner": "Ed",
+    "Player": "Alex Sarr",
+    "Team": "Washington",
+    "Pos": "C"
+  }
+]
