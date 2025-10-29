@@ -16,6 +16,7 @@ $scriptRoot = $PSScriptRoot
 #    }
 #}
 
+# import from local source due to issues importing in GH Actions
 Import-Module -FullyQualifiedName "$scriptRoot\modules\Join-Object\2.0.3\Join-Object.psd1"
 Import-Module -FullyQualifiedName "$scriptRoot\modules\PSWriteHTML\1.39.0\PSWriteHTML.psd1"
 Import-Module -FullyQualifiedName "$scriptRoot\modules\PSWriteHTML\1.9.0\PSWriteHTML.psd1"
