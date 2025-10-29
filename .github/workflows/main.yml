@@ -21,7 +21,7 @@ jobs:
           run: Install-Module -Name PSWriteHTML -Force
         - name: Install PowerHTML module
           shell: pwsh
-          run: Install-Module -Name PowerHTML -Force
+          run: Install-Module -Name PowerHTML -Force -AllowClobber
         - name: Script
           run: .\Get-Stats.ps1
             $commitMsg = "[$(get-date -Format 'yyyy.MM.dd:hh.mm.ss')]Updated stats for 2025"
