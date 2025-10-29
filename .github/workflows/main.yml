@@ -21,13 +21,13 @@ jobs:
           run: Install-Module -Name PSWriteHTML -Force
         - name: Install PowerHTML module
           shell: pwsh
-          run: Install-Module -Name PowerHTML -Force
+          run: Install-Module -Name PowerHTML -Force -AllowClobber
         - name: Script
           run: .\Get-Stats.ps1
-            $commitMsg = "[$(get-date -Format 'yyyy.MM.dd:hh.mm.ss')]Updated stats for 2025"
+            $commitMsg = "[$(get-date -Format 'yyyy.MM.dd:hh.mm.ss')]Updated stats"
             git config user.name github-actions[bot]
             git config user.email github-actions[bot]@users.noreply.github.com
-            git add 2025.csv
+            git add dashboard.html
             git commit -m $commitMsg
           shell: pwsh
         - name: Push changes # push the output folder to your repo
