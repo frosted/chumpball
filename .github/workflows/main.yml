@@ -33,14 +33,8 @@ jobs:
         - name: Push changes # push the output folder to your repo
           uses: ad-m/github-push-action@master
           with:
-            github_token: ${{ secrets.CHUMPBALL_TOKEN  }}
+            github_token: ${{ secrets.CHUMPBALL_TOKEN }}
             force: true
-        - name: Checkout destination repo
-          uses: actions/checkout@v4
-          with:
-            repository: frosted/frosted.github.io # Specify the target repository
-            token: ${{ secrets.FROSTED_TOKEN }} # Use a PAT with write access
-            path: destination_repo # Clones the destination repo to 'destination_repo' directory
 
           
 
