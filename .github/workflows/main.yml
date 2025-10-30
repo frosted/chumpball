@@ -30,17 +30,12 @@ jobs:
             git add .\index.html
             git commit -m $commitMsg
           shell: pwsh
-        #- name: Push changes # push the output folder to your repo
-        #  uses: ad-m/github-push-action@master
-        #  with:
-        #    github_token: ${{ secrets.CHUMPBALL_TOKEN }}
-        #    force: true
-        - name: Commit and push changes
-            uses: stefanzweifel/git-auto-commit-action@v5
-            with:
-              github_token: ${{ secrets.CHUMPBALL_TOKEN }}
-              commit_message: "Automated: Update repo"
-              branch: main # Specify the branch to commit to
+        - name: Stage new files
+          run: git add .\index.html
+        - name: Commit changes
+          run: git commit -m "Add new files via GitHub Actions"
+        - name: Push changes
+          run: git push
 
           
 
