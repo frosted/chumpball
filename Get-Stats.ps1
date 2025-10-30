@@ -222,7 +222,7 @@ foreach ($owner in $dataOwners) {
 
 #region: output
 
-Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 'Ed Frost' -FilePath "$scriptRoot\dashboard.html" {
+Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 'Ed Frost' -FilePath "$scriptRoot\index.html" {
     Section -HeaderText "Chumpball Fantasy Basketball $($year-1)-$($year)" -BorderRadius 0px -HeaderTextColor BlackPearl -HeaderBackGroundColor White -HeaderTextSize 18 -HeaderTextAlignment left -content { 
         Section -Invisible -Density Compact -Content {
             foreach ($owner in $dataOwners) {
