@@ -38,6 +38,7 @@ jobs:
         - name: Commit and push changes
             uses: stefanzweifel/git-auto-commit-action@v5
             with:
+              github_token: ${{ secrets.CHUMPBALL_TOKEN }}
               commit_message: "Automated: Update repo"
               branch: main # Specify the branch to commit to
 
