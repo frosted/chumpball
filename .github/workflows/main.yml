@@ -9,7 +9,7 @@ jobs:
       name: Run Script
       runs-on: windows-latest
       steps:
-        - uses: actions/checkout@v1
+        - uses: actions/checkout@v4
         - name: Install Join-Object module
           shell: pwsh
           run: Install-Module -Name Join-Object -Force
@@ -30,11 +30,16 @@ jobs:
             git add .\index.html
             git commit -m $commitMsg
           shell: pwsh
-        - name: Push changes # push the output folder to your repo
-          uses: ad-m/github-push-action@master
-          with:
-            github_token: ${{ secrets.CHUMPBALL_TOKEN }}
-            force: true
+        #- name: Push changes # push the output folder to your repo
+        #  uses: ad-m/github-push-action@master
+        #  with:
+        #    github_token: ${{ secrets.CHUMPBALL_TOKEN }}
+        #    force: true
+        - name: Commit and push changes
+            uses: stefanzweifel/git-auto-commit-action@v5
+            with:
+              commit_message: "Automated: Update repo"
+              branch: main # Specify the branch to commit to
 
           
 
