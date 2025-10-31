@@ -9,7 +9,7 @@ jobs:
       name: Run Script
       runs-on: windows-latest
       steps:
-        - uses: actions/checkout@v1
+        - uses: actions/checkout@v4
         - name: Install Join-Object module
           shell: pwsh
           run: Install-Module -Name Join-Object -Force
@@ -23,24 +23,12 @@ jobs:
           shell: pwsh
           run: Install-Module -Name PowerHTML -Force -AllowClobber
         - name: Script
-          run: .\Get-Stats.ps1
+          run: |
+            .\Get-Stats.ps1
             $commitMsg = "[$(get-date -Format 'yyyy.MM.dd:hh.mm.ss')]Updated stats"
             git config user.name github-actions[bot]
             git config user.email github-actions[bot]@users.noreply.github.com
-            git add .\dashboard.html
+            git add .
             git commit -m $commitMsg
+            git push
           shell: pwsh
-        - name: Push changes # push the output folder to your repo
-          uses: ad-m/github-push-action@master
-          with:
-            github_token: ${{ secrets.CHUMPBALL_TOKEN  }}
-            force: true
-        - name: Checkout destination repo
-          uses: actions/checkout@v4
-          with:
-            repository: frosted/frosted.github.io # Specify the target repository
-            token: ${{ secrets.FROSTED_TOKEN }} # Use a PAT with write access
-            path: destination_repo # Clones the destination repo to 'destination_repo' directory
-
-          
-
