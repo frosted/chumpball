@@ -6,7 +6,7 @@ on:
   #push:
   #  branches: ["main"]
   workflow_run:
-    workflows: "statPull" # Or a list of workflow names
+    workflows: ["statPull"] # Or a list of workflow names
     types: completed
 
   # Allows you to run this workflow manually from the Actions tab

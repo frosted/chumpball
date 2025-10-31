@@ -1,8 +1,11 @@
 name: StatPull
 on: 
+    # Runs on pushes targeting the default branch
+    push:
+      branches: ["main"]
     workflow_dispatch:
-    #schedule:
-        #- cron: '0 11 * * *' # Runs every day at 11:00 AM UTC (7:00 AM EST)
+    schedule:
+        - cron: '0 11 * * *' # Runs every day at 11:00 AM UTC (7:00 AM EST)
 
 jobs:
     build:
