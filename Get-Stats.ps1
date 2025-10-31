@@ -267,13 +267,14 @@ foreach ($owner in $dataOwners) {
 
 Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 'Ed Frost' -FilePath "$scriptRoot\index.html" {
     # Add-CSS -Content 'td.shrink { white-space: nowrap; }' -ResourceComment 'Prevents wrapping, forcing cell to expand if content is long'
-    # Add-CSS -Content 'td.expand { width: 99%; }' -ResourceComment 'Occupies remaining space after other columns shrink'
+    # Add-CSS -Content 'td.expand { width: 99%; max-width: 600px; }' -ResourceComment 'Occupies remaining space after other columns shrink'
     # Add-CSS -Content 'th { text-align: left;}'
-    Add-CSS -Content 'table { table-layout: auto; width: auto; }'
+    # Add-CSS -Content 'table { table-layout: auto; width: auto; max-width: 400px; text-align: left; }'
+    Add-CSS -Content 'div { display: table; }'
     Section -HeaderText "Chumpball Fantasy Basketball $($year-1)-$($year)" -BorderRadius 0px -HeaderTextColor BlackPearl -HeaderBackGroundColor White -HeaderTextSize 18 -HeaderTextAlignment left -content { 
-        Section -Invisible -Density Compact -BorderRadius 0px -Content {
+        Section -Invisible -Density VeryDense -BorderRadius 0px -Content {
             foreach ($owner in $dataOwners) {
-                Section -HeaderText "$owner" -BorderRadius 0px -Density Compact -HeaderBackGroundColor BlackPearl -HeaderTextAlignment center -Content {
+                Section -HeaderText "$owner" -BorderRadius 0px -Density VeryDense -HeaderBackGroundColor BlackPearl -HeaderTextAlignment center -Content {
                     #Text -FontSize 18 -FontWeight bold -Display contents -Alignment center -SkipParagraph -Text "$($owner)'s Team:"
                     
                     foreach ($team in @('A','B','C')) {
@@ -281,7 +282,7 @@ Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 
                         $dataTeamSum = [psobject](Get-Variable -Name "team$($team)Sum").Value | Where-Object {$_.owner -eq $owner}
                         
                         Table -DataTable $($dataTeamStats + $dataTeamSum) -Title "$($owner)'s Team $($team):" -IncludeProperty 'Player','Team','Pos','Rd#','GP','PTS','REB','AST','TOV','SCORE','AVG' -Simplify  -HideFooter {
-                            TableHeader -Title "Team $($team):"
+                            TableHeader -Title "Team $($team):" -BackGroundColor WhiteSmoke
                             TableContent -RowIndex $($dataTeamStats + $dataTeamSum).Count -FontWeight bold -
                         }      
                     } 
@@ -289,8 +290,8 @@ Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 
             }
         }
         
-        Section -Density Compact -BorderRadius 0px -HeaderText "Leaderboards" -HeaderBackGroundColor BlackPearl -HeaderTextAlignment center -content {
-            Section -Density Compact -Margin 0 -BorderRadius 0px -HeaderText "Standings" -HeaderTextAlignment center -HeaderTextColor BlackPearl -HeaderBackGroundColor WhiteSmoke -content {
+        Section -Density VeryDense -BorderRadius 0px -HeaderText "Leaderboards" -HeaderBackGroundColor BlackPearl -HeaderTextAlignment center -content {
+            Section -Density VeryDense -Margin 0 -BorderRadius 0px -HeaderText "Standings" -HeaderTextAlignment center -HeaderTextColor BlackPearl -HeaderBackGroundColor WhiteSmoke -content {
                 SectionOption -RemoveShadow
                 # team a standings
                 $data = Add-RankMember -ListObject $teamASum -SortByProperty Score
@@ -319,7 +320,7 @@ Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 
                 }
             }
 
-            Section -Density Compact -Margin 0 -BorderRadius 0px -HeaderText "Positional Leaders" -HeaderTextAlignment center -HeaderTextColor BlackPearl -HeaderBackGroundColor WhiteSmoke -content {
+            Section -Density VeryDense -Margin 0 -BorderRadius 0px -HeaderText "Positional Leaders" -HeaderTextAlignment center -HeaderTextColor BlackPearl -HeaderBackGroundColor WhiteSmoke -content {
                 SectionOption -RemoveShadow -HeaderBackGroundColor White
             
                 # top 5 centers
@@ -344,7 +345,7 @@ Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 
                 }
             }
 
-            Section -Density Compact -Margin 0 -BorderRadius 0px -HeaderText "Stat Leaders" -HeaderTextAlignment center -HeaderTextColor BlackPearl -HeaderBackGroundColor WhiteSmoke -content {
+            Section -Density VeryDense -Margin 0 -BorderRadius 0px -HeaderText "Stat Leaders" -HeaderTextAlignment center -HeaderTextColor BlackPearl -HeaderBackGroundColor WhiteSmoke -content {
                 SectionOption -RemoveShadow -HeaderBackGroundColor White
             
                 # top 5 score
@@ -384,13 +385,13 @@ Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 
             }
         }
 
-        #Section -Invisible {
-        #    # spacer
-        #}
+        Section -Invisible {
+            # spacer
+        }
     }
     
     Text -Text "Dashboard timestamp: $(get-date)" -Opacity 50          
-} 
+} -ShowHTML
 
 #endregion
 
