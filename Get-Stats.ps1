@@ -269,7 +269,7 @@ Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 
     # Add-CSS -Content 'td.shrink { white-space: nowrap; }' -ResourceComment 'Prevents wrapping, forcing cell to expand if content is long'
     # Add-CSS -Content 'td.expand { width: 99%; }' -ResourceComment 'Occupies remaining space after other columns shrink'
     # Add-CSS -Content 'th { text-align: left;}'
-    # Add-CSS -Content 'table { border-collapse: collapse; table-layout: auto; width: auto; max-width: 100%; }'
+    Add-CSS -Content 'table { table-layout: auto; width: auto; }'
     Section -HeaderText "Chumpball Fantasy Basketball $($year-1)-$($year)" -BorderRadius 0px -HeaderTextColor BlackPearl -HeaderBackGroundColor White -HeaderTextSize 18 -HeaderTextAlignment left -content { 
         Section -Invisible -Density Compact -BorderRadius 0px -Content {
             foreach ($owner in $dataOwners) {
@@ -295,14 +295,14 @@ Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 
                 # team a standings
                 $data = Add-RankMember -ListObject $teamASum -SortByProperty Score
                 
-                Table -DataTable $data -Width 300 -IncludeProperty '#', Owner, Score, GP, AVG -Simplify -HideFooter {
+                Table -DataTable $data -IncludeProperty '#', Owner, Score, GP, AVG -Simplify -HideFooter {
                     TableHeader -Title 'Team A'
                 }
 
                 # team b standings
                 $data = Add-RankMember -ListObject $teamBSum -SortByProperty Score
 
-                Table -DataTable $data -Width 300 -IncludeProperty '#', Owner, Score, GP, AVG -Simplify -HideFooter {
+                Table -DataTable $data -IncludeProperty '#', Owner, Score, GP, AVG -Simplify -HideFooter {
                     TableHeader -Title 'Team B'
                 }
 
@@ -314,7 +314,7 @@ Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 
                 }  | Sort-Object Score -Descending
                 $data = Add-RankMember -ListObject $data -SortByProperty Score
 
-                Table -DataTable $data -Width 300 -IncludeProperty '#', Owner, Score, GP, AVG -Simplify -HideFooter {
+                Table -DataTable $data -IncludeProperty '#', Owner, Score, GP, AVG -Simplify -HideFooter {
                     TableHeader -Title 'Team A+B'
                 }
             }
@@ -325,21 +325,21 @@ Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 
                 # top 5 centers
                 $data = $data_player_season_draft_drafted | Where-Object Pos -eq 'C' | Sort-Object -Property Score -Descending | Select-Object * -First 5 
                 $data = Add-RankMember -ListObject $data -SortByProperty Score
-                Table -DataTable $data -Width 300 -IncludeProperty '#', Player, Team, Score -Simplify -HideFooter {
+                Table -DataTable $data -IncludeProperty '#', Player, Team, Score -Simplify -HideFooter {
                     TableHeader -Title 'Top Centers'
                 }
 
                 # top 5 forwards
                 $data = $data_player_season_draft_drafted | Where-Object Pos -eq 'F' | Sort-Object -Property Score -Descending | Select-Object * -First 5 
                 $data = Add-RankMember -ListObject $data -SortByProperty Score
-                Table -DataTable $data -Width 300 -IncludeProperty '#', Player, Team, Score -Simplify -HideFooter {
+                Table -DataTable $data -IncludeProperty '#', Player, Team, Score -Simplify -HideFooter {
                     TableHeader -Title 'Top Forwards'
                 }
 
                 # top 5 guards
                 $data = $data_player_season_draft_drafted | Where-Object Pos -eq 'G' | Sort-Object -Property Score -Descending | Select-Object * -First 5 
                 $data = Add-RankMember -ListObject $data -SortByProperty Score
-                Table -DataTable $data -Width 300 -IncludeProperty '#', Player, Team, Score -Simplify -HideFooter {
+                Table -DataTable $data -IncludeProperty '#', Player, Team, Score -Simplify -HideFooter {
                     TableHeader -Title 'Top Guards'
                 }
             }
@@ -350,43 +350,43 @@ Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 
                 # top 5 score
                 $data = $data_player_season_draft_drafted | Sort-Object -Property Score -Descending | Select-Object * -First 5 
                 $data = Add-RankMember -ListObject $data -SortByProperty Score
-                Table -DataTable $data -Width 300 -IncludeProperty '#', Player, Team, Score -Simplify -HideFooter {
+                Table -DataTable $data -IncludeProperty '#', Player, Team, Score -Simplify -HideFooter {
                     TableHeader -Title 'Top Scores'
                 }
 
                 # top 5 average
                 $data = $data_player_season_draft_drafted | Sort-Object -Property AVG -Descending | Select-Object * -First 5 
                 $data = Add-RankMember -ListObject $data -SortByProperty AVG
-                Table -DataTable $data -Width 300 -IncludeProperty '#', Player, Team, AVG -Simplify -HideFooter {
+                Table -DataTable $data -IncludeProperty '#', Player, Team, AVG -Simplify -HideFooter {
                     TableHeader -Title 'Top Averages'
                 }
 
                 # top 5 points
                 $data = $data_player_season_draft_drafted | Sort-Object -Property PTS -Descending | Select-Object * -First 5 
                 $data = Add-RankMember -ListObject $data -SortByProperty PTS
-                Table -DataTable $data -Width 300 -IncludeProperty '#', Player, Team, PTS -Simplify -HideFooter {
+                Table -DataTable $data -IncludeProperty '#', Player, Team, PTS -Simplify -HideFooter {
                     TableHeader -Title 'Top Points'
                 }
 
                 # top 5 rebounds
                 $data = $data_player_season_draft_drafted | Sort-Object -Property REB -Descending | Select-Object * -First 5 
                 $data = Add-RankMember -ListObject $data -SortByProperty REB
-                Table -DataTable $data -Width 300 -IncludeProperty '#', Player, Team, REB -Simplify -HideFooter {
+                Table -DataTable $data -IncludeProperty '#', Player, Team, REB -Simplify -HideFooter {
                     TableHeader -Title 'Top Rebounds'
                 }
 
                 # top 5 assists
                 $data = $data_player_season_draft_drafted | Sort-Object -Property AST -Descending | Select-Object * -First 5 
                 $data = Add-RankMember -ListObject $data -SortByProperty AST
-                Table -DataTable $data -Width 300 -IncludeProperty '#', Player, Team, AST -Simplify -HideFooter {
+                Table -DataTable $data -IncludeProperty '#', Player, Team, AST -Simplify -HideFooter {
                     TableHeader -Title 'Top Assists'
                 }
             }
         }
 
-        Section -Invisible {
-            # spacer
-        }
+        #Section -Invisible {
+        #    # spacer
+        #}
     }
     
     Text -Text "Dashboard timestamp: $(get-date)" -Opacity 50          
