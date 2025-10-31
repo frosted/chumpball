@@ -390,7 +390,7 @@ Dashboard -TitleText "Chumpball Fantasy Basketball $($year-1)-$($year)" -Author 
     }
     
     Text -Text "Dashboard timestamp: $(get-date)" -Opacity 50          
-} -ShowHTML
+} 
 
 #endregion
 
